@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 
 // Public API (Géré par React, on laisse Laravel gérer uniquement le stream si besoin)
 // Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,3 +26,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 require __DIR__ . '/auth.php';
+
+// Fallback : Rediriger vers React index.html
+Route::fallback(function () {
+    $path = public_path('index.html');
+    if (File::exists($path)) {
+        return File::get($path);
+    }
+    return abort(404);
+});
