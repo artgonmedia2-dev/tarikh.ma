@@ -7,11 +7,11 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-// Public
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/a-propos', [HomeController::class, 'about'])->name('about');
-Route::get('/archives', [DocumentController::class, 'index'])->name('documents.index');
-Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('documents.show');
+// Public API (Géré par React, on laisse Laravel gérer uniquement le stream si besoin)
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/a-propos', [HomeController::class, 'about'])->name('about');
+// Route::get('/archives', [DocumentController::class, 'index'])->name('documents.index');
+// Route::get('/documents/{document}', [DocumentController::class, 'show'])->name('documents.show');
 Route::get('/documents/{document}/stream', [DocumentController::class, 'stream'])->name('documents.stream');
 
 // Admin (auth + role admin|editor)
