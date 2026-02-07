@@ -1,0 +1,11 @@
+version: "2"
+authtoken: 39LCpILjKEccch3sBxBacq9tDTq_7cNzf5P8BsYVGvnnpCtMw
+tunnels:
+  api:
+    proto: http
+    addr: 8000
+    host_header: rewrite
+  app:
+    proto: http
+    addr: 5173
+    host_header: rewrite
