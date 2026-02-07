@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visionneuse de Document - Tarikh.ma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .watermark-overlay {
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 100px, transparent 100px, transparent 200px);
+            pointer-events: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #282e39; border-radius: 10px; }
+        .document-title { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-background-dark/50 backdrop-blur-md px-6 py-3 z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Tarikh.ma</h2>
+</div>
+<nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary px-2 transition-colors" href="#">Archives</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary px-2 transition-colors" href="#">Fès-Meknès</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-white truncate max-w-[200px]">Traité de commerce de 1767</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="Rechercher dans les archives..." type="text"/>
+</div>
+<button class="bg-primary text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20">
+                Mon Compte
+            </button>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex flex-1 overflow-hidden relative">
+<!-- Document Viewer Container -->
+<div class="flex-1 flex flex-col bg-black relative group">
+<!-- Viewer Toolbar -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/60 backdrop-blur-md border border-white/10 p-1.5 rounded-xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-1"></div>
+<button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors">
+<span class="material-symbols-outlined">rotate_right</span>
+</button>
+<button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-1"></div>
+<button class="p-2 hover:bg-white/10 rounded-lg text-white transition-colors">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+<!-- Document Display Area -->
+<div class="flex-1 flex items-center justify-center p-8 overflow-auto custom-scrollbar relative">
+<!-- Watermark Overlay -->
+<div class="absolute inset-0 watermark-overlay z-10 pointer-events-none opacity-40"></div>
+<!-- Main Archive Image -->
+<div class="relative shadow-[0_0_100px_rgba(17,82,212,0.15)] rounded-sm border border-white/5 transition-transform duration-500 cursor-grab active:cursor-grabbing">
+<img alt="Document historique manuscrit" class="max-h-[80vh] w-auto select-none pointer-events-none" data-alt="Close up of a 18th century historical parchment document with calligraphy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWw9lrjWkeV6Z628BCkAsneOjxEql2W0QVDICAXNn-sCBOJZ2ceeYQz7fzSOraYbeljSS6tn3x5WSICgesAmUIOljXCtxfEDDbiTof781oo8VUFxVAXcfCkYm_DmxTQ-BAsTF2EmdCO8HvT7zKthHSTBprr1wZlZC7_z3yO-6ZnErmOBermtYSHHI2zovWCxQ46G_j4-FFZLddoOH6JREBqbSJ_p0MIrNsED4oUU4spYwMTk4RvxdYIDBd6CXWTm6QihjGFzgVe-L5"/>
+<!-- Corner Brackets Design -->
+<div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/40"></div>
+<div class="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-primary/40"></div>
+<div class="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-primary/40"></div>
+<div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-primary/40"></div>
+</div>
+</div>
+<!-- Discovery Carousel (Bottom) -->
+<div class="bg-black/80 backdrop-blur-xl border-t border-white/5 p-4 h-48 overflow-hidden">
+<div class="flex items-center justify-between mb-3 px-2">
+<h3 class="text-white/60 text-xs font-bold uppercase tracking-widest">Documents similaires</h3>
+<div class="flex gap-2">
+<button class="text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined">arrow_back_ios</span></button>
+<button class="text-white/40 hover:text-white transition-colors"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
+</div>
+</div>
+<div class="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
+<div class="flex-shrink-0 w-32 group/card cursor-pointer">
+<div class="aspect-[3/4] rounded-md overflow-hidden bg-slate-800 border border-white/10 group-hover/card:border-primary/50 transition-all">
+<img class="w-full h-full object-cover grayscale opacity-60 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500" data-alt="Aged sepia paper document thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0nQonnbPujw6e3kSWbG14c15KyfrHZEPFoilgGFD6KDyouRdlmBScmmIftYO6lsJ67Jm393Aa7-oi0vpRzfaHUCn9x_aHbWP5eMzL1RVkexDI9-81iS4nupbVUrVszsn1lzZeqRYkeK02iixDQ_A_C8WPYc5t58VVT8I6hy5mvtuQkDVNyj948l4p6He64_NnZqgXL-S--kZe5EqjUnfrg2NDrTHyj9YumNUz9BlAR-z-ZCOHfUAtcCqKsevY4cq-c49bnXc45AaT"/>
+</div>
+<p class="text-[10px] text-white/50 mt-2 truncate group-hover/card:text-white transition-colors">Dahir Royal 1768</p>
+</div>
+<div class="flex-shrink-0 w-32 group/card cursor-pointer">
+<div class="aspect-[3/4] rounded-md overflow-hidden bg-slate-800 border border-white/10 group-hover/card:border-primary/50 transition-all">
+<img class="w-full h-full object-cover grayscale opacity-60 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500" data-alt="Historical map fragment thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-HG_QfToneskngg-ELq5_XKEx5HwOrGeuqRxBd86g8l61RneEIOR4tzB3kpa0PtM7hxZBhIVz5B0UtSRSu-agnt8oV8cmaOXxdsy2y_j4HcTijyEWTFUo3A5rRjrsjtoU412bKr_A2QcDEnA2Ggzu8_bWy44atKHxiTTS7bmftqPnR7d_vA1q3XGnZNP-pbTHOz66u0pNoz5uIceZQ4RCi0vfMXIDrNCqiAw5ew-u26bfGDBqTLUlyslv6ksG2QdNwqlGEFVoL6OS"/>
+</div>
+<p class="text-[10px] text-white/50 mt-2 truncate group-hover/card:text-white transition-colors">Carte de Mogador</p>
+</div>
+<div class="flex-shrink-0 w-32 group/card cursor-pointer">
+<div class="aspect-[3/4] rounded-md overflow-hidden bg-slate-800 border border-white/10 group-hover/card:border-primary/50 transition-all">
+<img class="w-full h-full object-cover grayscale opacity-60 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500" data-alt="Ancient calligraphy manuscript thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADJWTQbjHQdG3ubfijnSOXd_lHTQQogcQHQ8l0LoR3NbEr4WdIOtN3ZNI99sFwgASICSlTJ9xiiusEjos3WeAh8wAKTDRkowaYlJaI4f7anvCj7ua__E_VPrzBX8edlso5lsT7TIh_sfj4zwYxwK7emBOFUFRWmCx_1YchrDyHpIoWG-HrjtOuuzNb3ty0gkjg1sMap3CVTI4_6AVTNlwa0dPh4QnkQnIoWExWdj4467w0tK8UEx-rf4_GmvvnsGAmS8uRfq2g7OdQ"/>
+</div>
+<p class="text-[10px] text-white/50 mt-2 truncate group-hover/card:text-white transition-colors">Correspondance Diplomatique</p>
+</div>
+<div class="flex-shrink-0 w-32 group/card cursor-pointer">
+<div class="aspect-[3/4] rounded-md overflow-hidden bg-slate-800 border border-white/10 group-hover/card:border-primary/50 transition-all">
+<img class="w-full h-full object-cover grayscale opacity-60 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500" data-alt="Antique paper with wax seal thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYNWiF5RU5O6pNoSMgMrum5O0b9cBrZb967DXuESLFnceEw16IWN1Hq9WJAVVY13iNcb6Zy9ESnzcBR9lcKYzZ7tsSnR92-hmK5vUM31GCgXbiCd-tNNk_ocSW573ZSbFxNMrMJXUo_SAfJaf9ysvFYNVo3mk877D6nIXICfIVv4Cx0WhjFpETDS9OqoqZ9kcjE11-5JHSoVWwxn-SQh21-aSQijIR1okUlABu1jCjMUs0KVn5Ahb5_CTkOA6O6SlqTWWV7Fb9X-jZ"/>
+</div>
+<p class="text-[10px] text-white/50 mt-2 truncate group-hover/card:text-white transition-colors">Traité de Paix 1767</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar (Right) -->
+<aside class="w-96 bg-white dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 flex flex-col z-30 custom-scrollbar overflow-y-auto">
+<div class="p-8">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Document Certifié</span>
+</div>
+<h1 class="document-title text-3xl font-bold mb-4 leading-tight">Traité de commerce de 1767</h1>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>1,284 vues</span>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="space-y-8">
+<div>
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Description</h4>
+<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed italic">
+                            Accord historique conclu entre le Sultan Mohammed ben Abdallah et le Royaume de France, marquant une ère de diplomatie économique et d'échanges privilégiés dans la région de Fès-Meknès.
+                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Thème</p>
+<p class="text-sm font-medium">Diplomatie</p>
+</div>
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Région</p>
+<p class="text-sm font-medium">Fès-Meknès</p>
+</div>
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Date</p>
+<p class="text-sm font-medium">28 Mai 1767</p>
+</div>
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-1">Réf.</p>
+<p class="text-sm font-medium">MA-1767-FM-01</p>
+</div>
+</div>
+<div class="space-y-3">
+<h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Actions de recherche</h4>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-sm font-medium">Provenance &amp; Histoire</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">history</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-sm font-medium">Citer le document</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">format_quote</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<span class="text-sm font-medium">Signaler une erreur</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">flag</span>
+</button>
+</div>
+</div>
+<div class="mt-12 p-6 rounded-2xl bg-primary/5 border border-primary/10">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">lock</span>
+<h5 class="text-sm font-bold">Lecture Sécurisée</h5>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Ce document est protégé par le droit d'auteur patrimonial. Le téléchargement est désactivé pour garantir la préservation numérique.
+                    </p>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

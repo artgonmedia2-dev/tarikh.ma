@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>À Propos - Tarikh.ma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d483",
+                        "background-light": "#fcfaf7",
+                        "background-dark": "#10221a",
+                        "parchment": "#f4f1ea",
+                        "gold-accent": "#c5a059",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        .parchment-bg { background-color: #fcfaf7; }
+        .timeline-line { width: 2px; background: linear-gradient(to bottom, #11d483 0%, #11d483 80%, transparent 100%); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header / Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined text-4xl">history_edu</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight">Tarikh.ma</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-semibold" href="#">Archives</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-semibold" href="#">Chronologie</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-semibold" href="#">Cartographie</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">À Propos</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<label class="hidden lg:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 gap-2 border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-400" placeholder="Rechercher un document..."/>
+</label>
+<button class="bg-primary text-slate-900 px-5 py-2 rounded-lg font-bold text-sm hover:brightness-110 transition-all shadow-sm">
+                    Connexion
+                </button>
+</div>
+</header>
+<!-- Hero Section -->
+<main class="flex-1">
+<section class="relative h-[500px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Ancient library" class="w-full h-full object-cover opacity-20 grayscale brightness-50" data-alt="Interior of a magnificent historic Moroccan library with wooden shelves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMAiUkLX4Ef90560Doe2G93v3yek3cb0Ui2NXaou2ZmdA-JaRLKqN5iQj6K-JouT3lxAWl4qKtnZ3GwYkE2gjjn6fLtK2dH3DcTrf0fizOeK2eCS5zaJNyb5DBiCCJTGNHdxfoMHjh4eINssVYHRipFMpN4S6OJu6Kgl6gEqp2_NgSPr6RsgULGJdGlK3z240igcdNUF-FjAZow4CjH_efTaMRC6qffLZdfHnmZ0V0lgRG-JqWqCGxVHkpLE9bmeP3Mzm_dgybSmPu"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background-light dark:to-background-dark"></div>
+</div>
+<div class="relative z-10 max-w-4xl px-6 text-center">
+<span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest mb-6">Institutionnel</span>
+<h1 class="text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+                        Notre Mission : <br/>
+<span class="text-primary italic font-serif">Porter l'Héritage</span>
+</h1>
+<p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                        Tarikh.ma est la sentinelle numérique du patrimoine marocain. Nous œuvrons pour que chaque manuscrit, chaque carte et chaque récit trouve sa place dans la mémoire du futur.
+                    </p>
+</div>
+</section>
+<!-- Mission Cards -->
+<section class="max-w-7xl mx-auto px-10 py-24">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<h3 class="font-bold text-xl mb-3">Centralisation</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Unification des archives dispersées pour créer un corpus national cohérent et accessible.
+                        </p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">public</span>
+</div>
+<h3 class="font-bold text-xl mb-3">Accessibilité</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Démocratisation du savoir historique pour les chercheurs, les étudiants et les curieux du monde entier.
+                        </p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">devices</span>
+</div>
+<h3 class="font-bold text-xl mb-3">Expérience Moderne</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Interfaces intuitives et outils de visualisation avancés pour une exploration fluide de l'histoire.
+                        </p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">encrypted</span>
+</div>
+<h3 class="font-bold text-xl mb-3">Sécurité</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Protection cryptographique et pérennité numérique des documents sensibles et rares.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="bg-parchment dark:bg-slate-950 py-24 px-10">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="text-3xl font-black mb-4">Genèse du Projet</h2>
+<div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+</div>
+<div class="relative space-y-16">
+<!-- Line -->
+<div class="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
+<!-- Step 1 -->
+<div class="relative flex items-start gap-12 group">
+<div class="z-10 flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white shadow-lg ring-8 ring-parchment dark:ring-slate-950 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div class="pt-2">
+<span class="text-primary font-black text-sm uppercase tracking-tighter">2021 — Phase d'étude</span>
+<h4 class="text-xl font-bold mt-1 mb-3">Éclosion de la vision</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    Une équipe pluridisciplinaire d'historiens, d'archivistes et d'ingénieurs se réunit pour définir les standards de numérisation du patrimoine marocain.
+                                </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-start gap-12 group">
+<div class="z-10 flex items-center justify-center w-16 h-16 rounded-full bg-white dark:bg-slate-800 text-primary border-4 border-primary shadow-lg ring-8 ring-parchment dark:ring-slate-950 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined">handshake</span>
+</div>
+<div class="pt-2">
+<span class="text-primary font-black text-sm uppercase tracking-tighter">2022 — Alliances Stratégiques</span>
+<h4 class="text-xl font-bold mt-1 mb-3">Partenariats Institutionnels</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    Signature d'accords historiques avec les Archives Nationales et les bibliothèques universitaires pour centraliser plus de 500,000 documents rares.
+                                </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-start gap-12 group">
+<div class="z-10 flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white shadow-lg ring-8 ring-parchment dark:ring-slate-950 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="pt-2">
+<span class="text-primary font-black text-sm uppercase tracking-tighter">2023 — Déploiement</span>
+<h4 class="text-xl font-bold mt-1 mb-3">Lancement de la plateforme</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    Mise en ligne de Tarikh.ma avec son moteur de recherche sémantique et ses outils de visualisation cartographique du Maroc à travers les âges.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Split Heritage Section -->
+<section class="flex flex-col lg:flex-row min-h-[600px]">
+<div class="lg:w-1/2 relative min-h-[400px]">
+<img alt="Historic Moroccan script" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Detail of an old Moroccan manuscript with Arabic calligraphy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUi5BOTSw9nRYZNMewX2G9maChHwU9aq9HL0CWgvk_n4b2wMh3uLoz88z6dhm2WVwMoboRK19O6u9pdrFVZF9NsRnlHYsPVE-X2G_Fq71ltP3xQN1ARq2xoUACzOW8BPOFc-MriNGeID6QaFu7cSdrUGxQLYkLV0JYP6clwtNRSJ4QRKdE-ZOG21Vs7M7zzTvHdTSUEaZYwrUxZjVqZoveQg07siRWnIXI-EFulrrYpBXFo6F6JxmyVHqi44Ml8Bc6MPD1ahKYTfYp"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+</div>
+<div class="lg:w-1/2 bg-slate-900 text-white flex flex-col justify-center p-12 lg:p-24 space-y-8">
+<h2 class="text-4xl font-black font-serif italic text-primary">Un devoir de mémoire</h2>
+<p class="text-lg text-slate-300 leading-relaxed font-light italic">
+                        "La culture est ce qui reste quand on a tout oublié. En préservant les traces de notre passé, nous ne faisons pas que regarder en arrière, nous construisons les fondations d'un avenir plus conscient et plus fier de son identité plurielle."
+                    </p>
+<div class="pt-6 border-t border-slate-700">
+<p class="font-bold text-white tracking-widest uppercase text-sm mb-1">Dr. Ahmed El Mansouri</p>
+<p class="text-primary text-xs font-semibold">Conservateur en Chef, Projet Tarikh</p>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-24 px-10 text-center bg-white dark:bg-background-dark">
+<div class="max-w-2xl mx-auto space-y-8">
+<div class="text-primary">
+<span class="material-symbols-outlined text-6xl">menu_book</span>
+</div>
+<h2 class="text-3xl font-black">Prêt à explorer notre histoire ?</h2>
+<p class="text-slate-500 dark:text-slate-400">
+                        Plongez dans des siècles de savoir, de culture et de découvertes. Rejoignez les milliers de citoyens et chercheurs qui redécouvrent le Maroc chaque jour.
+                    </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto bg-primary text-slate-900 px-10 py-4 rounded-xl font-bold hover:shadow-lg hover:brightness-110 transition-all">
+                            Explorer les archives
+                        </button>
+<button class="w-full sm:w-auto border-2 border-slate-200 dark:border-slate-800 px-10 py-4 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
+                            Devenir partenaire
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-16 px-10">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">history_edu</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-black tracking-tight">Tarikh.ma</h2>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Plateforme nationale pour la valorisation et la numérisation du patrimoine historique du Royaume du Maroc.
+                    </p>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-wider text-slate-900 dark:text-white">Navigation</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Accueil</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Les Archives</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">La Chronologie</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cartes Historiques</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-wider text-slate-900 dark:text-white">Légal</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Mentions Légales</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Politique de Confidentialité</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Conditions d'Utilisation</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-wider text-slate-900 dark:text-white">Newsletter</h4>
+<p class="text-xs text-slate-500 mb-4">Recevez les dernières découvertes archivistiques.</p>
+<div class="flex gap-2">
+<input class="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg text-xs w-full focus:ring-primary focus:border-primary" placeholder="Votre email" type="email"/>
+<button class="bg-slate-900 dark:bg-primary dark:text-slate-900 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col md:row justify-between items-center gap-4">
+<p class="text-xs text-slate-400">© 2024 Tarikh.ma - Tous droits réservés.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer">social_leaderboard</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer">share</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer">public</span>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

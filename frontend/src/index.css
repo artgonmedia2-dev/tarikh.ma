@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Public Sans', sans-serif;
+  @apply bg-white text-slate-900 antialiased;
+}
+
+.hero-gradient {
+  background: linear-gradient(rgba(6, 78, 59, 0.85), rgba(10, 15, 24, 0.95));
+}
+
+.glass-nav {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Document viewer (article page) — light theme */
+.document-viewer-nav {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.watermark-overlay {
+  background-image: repeating-linear-gradient(45deg,
+      rgba(212, 175, 55, 0.06) 0,
+      rgba(212, 175, 55, 0.06) 100px,
+      transparent 100px,
+      transparent 200px);
+  pointer-events: none;
+}
+
+/* Filigrane sur fond noir (zone visionneuse) */
+.viewer-dark .watermark-overlay {
+  background-image: repeating-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 100px,
+      transparent 100px,
+      transparent 200px);
+}
+
+/* Zone visionneuse : lecture seule, sans téléchargement ni copier-coller */
+.no-download,
+.no-copy {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.no-download img,
+.no-copy img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+}
+
+/* Bloquer la sélection et le copier dans toute la zone .no-copy */
+.no-copy * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+/* Cahier / livre — page flip effect (real book feel), durée centralisée */
+.cahier-viewer {
+  --flip-duration: 0.45s;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+  position: relative;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    -6px 0 16px -6px rgba(0, 0, 0, 0.06),
+    6px 0 16px -6px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  transform-style: preserve-3d;
+}
+
+.cahier-viewer-brochure {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.cahier-page {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.2s ease;
+}
+
+.cahier-page-inner {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Texture papier ancien (effet livre historique) */
+.cahier-page-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* Lignes horizontales subtiles */
+    repeating-linear-gradient(0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(139, 90, 43, 0.015) 2px,
+      rgba(139, 90, 43, 0.015) 4px),
+    /* Texture grain */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  z-index: 5;
+  border-radius: inherit;
+  mix-blend-mode: multiply;
+}
+
+/* Ombre intérieure style reliure */
+.cahier-page-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 0%, transparent 3%),
+    linear-gradient(to left, rgba(0, 0, 0, 0.02) 0%, transparent 2%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 0%, transparent 1%);
+  z-index: 6;
+  border-radius: inherit;
+}
+
+.cahier-pdf-object {
+  transform: translateZ(0);
+}
+
+/* Transition 2D type livre (visible avec viewer PDF / iframe) */
+.cahier-page.turn-next-out {
+  will-change: transform, opacity;
+  animation: book-slide-out-left 0.5s ease-in-out forwards;
+}
+
+.cahier-page.turn-prev-out {
+  will-change: transform, opacity;
+  animation: book-slide-out-right 0.5s ease-in-out forwards;
+}
+
+.cahier-page.turn-next-in {
+  will-change: transform, opacity;
+  animation: book-slide-in-from-right 0.5s ease-in-out forwards;
+}
+
+.cahier-page.turn-prev-in {
+  will-change: transform, opacity;
+  animation: book-slide-in-from-left 0.5s ease-in-out forwards;
+}
+
+@keyframes book-slide-out-left {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-25%) scale(0.92);
+    opacity: 0.01;
+  }
+}
+
+@keyframes book-slide-out-right {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(25%) scale(0.92);
+    opacity: 0.01;
+  }
+}
+
+@keyframes book-slide-in-from-right {
+  0% {
+    transform: translateX(25%) scale(0.92);
+    opacity: 0.01;
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes book-slide-in-from-left {
+  0% {
+    transform: translateX(-25%) scale(0.92);
+    opacity: 0.01;
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.cahier-zone-prev,
+.cahier-zone-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 38%;
+  z-index: 4;
+  cursor: pointer;
+}
+
+.cahier-zone-prev {
+  left: 0;
+}
+
+.cahier-zone-next {
+  right: 0;
+}
+
+.cahier-viewer.is-flipping .cahier-zone-prev,
+.cahier-viewer.is-flipping .cahier-zone-next {
+  pointer-events: none;
+  cursor: wait;
+}
+
+.cahier-zone-prev:hover::after,
+.cahier-zone-next:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cahier-viewer-brochure .cahier-zone-prev:hover::after {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.04), transparent);
+}
+
+.cahier-viewer-brochure .cahier-zone-next:hover::after {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.04), transparent);
+}
+
+.cahier-zone-prev:hover::after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.06), transparent);
+}
+
+.cahier-zone-next:hover::after {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.06), transparent);
+}
+
+/* Admin dashboard — analytiques */
+.morocco-map-overlay {
+  background: linear-gradient(45deg, rgba(19, 236, 91, 0.1) 0%, rgba(19, 236, 91, 0.4) 100%);
+}
+
+/* À propos — timeline */
+.timeline-line {
+  width: 2px;
+  background: linear-gradient(to bottom, #1152d4 0%, #1152d4 80%, transparent 100%);
+}
+
+/* Admin document form — stepper */
+.step-active {
+  color: #111814;
+  border-bottom: 2px solid #13ec5b;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matrice des Permissions et Rôles - Tarikh.ma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Manrope", sans-serif
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.matrix-table tr:hover td {
+    background-color: rgba(19, 127, 236, 0.05)
+    }
+.matrix-checkbox:checked {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBG4p8oVoPZIqDYKm1X7Vsnl01Hw78B1MVly7DI8gi9GINkPCwB7g3wJpqgIT5XFeM07WPAguxKiztetRV_2PIEPYBA_r5IHWxWGDcp_zyhTtCQcq2Ftfj7NfoXFKGftk2v_2DTA_3L-Vj7yzKTukw3220xPQhP1WPe41WMvgZPGudBso4SAouXnjsYLhfQ-AXW4PbBrBjzrSnuwAGkC2DuCIFOR90Lr0iflDjqFvD8mREMQyXke9_F64orHRZrfjAqo2cxiz28-ki9)
+    }</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto max-w-[1440px] px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1.5 rounded-lg">
+<svg class="w-6 h-6 text-white" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Tarikh.ma</h1>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Utilisateurs</a>
+<a class="text-sm font-semibold text-primary" href="#">Permissions</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm w-64 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Rechercher une permission..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Photo de profil de l'administrateur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEVjzrAQsw_4XPoJvyZJy9WWv6KCEmwc6poELWJ8ClEcrMAy4LzBmhNbgd2Hq-hasfV-F16-a9mbMwt0_FPYidufhUwWpSsu4hI2vkEzTgGLBVcmyC6He7VIIVw-D_qSV8ERMu5E0q4tpaA8M4Iq1G5-b5OhoCFkDdn6jhNJ9TKURmKo-2MQ94z_GdxZxVwCEWAsrFZsBoSMlH7ulQob2IFsux-Tb3eXs8LMYOlxj5YhIKatOlPxohN0uUPwxINXc0LHAd6FRelNXi"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 mx-auto max-w-[1440px] w-full px-6 py-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary transition-colors" href="#">Admin</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Contrôle d'Accès</span>
+</div>
+<h2 class="text-3xl font-extrabold tracking-tight">Matrice des Permissions</h2>
+<p class="text-slate-500 mt-1">Configurez les droits d'accès et les limites opérationnelles pour chaque rôle utilisateur.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 font-bold text-sm rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Exporter la Matrice
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2 bg-primary text-white font-bold text-sm rounded-lg hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all">
+<span class="material-symbols-outlined text-lg">save</span>
+                        Enregistrer
+                    </button>
+</div>
+</div>
+<!-- Tabs Section -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
+<button class="px-6 py-4 border-b-2 border-primary text-primary font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">grid_on</span>
+                    Matrice des Permissions
+                </button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 font-bold text-sm flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">security</span>
+                    Groupes de Sécurité
+                </button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 font-bold text-sm flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">speed</span>
+                    Rate Limiting
+                </button>
+<button class="px-6 py-4 border-b-2 border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 font-bold text-sm flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">history</span>
+                    Audit Trail
+                </button>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+<!-- Main Matrix View -->
+<div class="xl:col-span-3">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left matrix-table border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="p-5 text-sm font-bold text-slate-500 uppercase tracking-wider sticky left-0 bg-slate-50 dark:bg-slate-800 z-10 w-64 border-b border-slate-200 dark:border-slate-700">Fonctionnalité</th>
+<th class="p-5 text-sm font-bold text-center border-b border-slate-200 dark:border-slate-700">Administrateur</th>
+<th class="p-5 text-sm font-bold text-center border-b border-slate-200 dark:border-slate-700">Éditeur</th>
+<th class="p-5 text-sm font-bold text-center border-b border-slate-200 dark:border-slate-700">Contributeur</th>
+<th class="p-5 text-sm font-bold text-center border-b border-slate-200 dark:border-slate-700">Visiteur</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Category: Documents -->
+<tr class="bg-slate-50/50 dark:bg-slate-800/20">
+<td class="px-5 py-3 text-xs font-black text-primary uppercase tracking-widest sticky left-0" colspan="5">Gestion des Documents</td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Ajouter Document
+                                            <span class="material-symbols-outlined text-slate-400 text-base cursor-help" title="Permet l'upload de nouveaux fichiers">info</span>
+</td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Modifier Document
+                                            <span class="material-symbols-outlined text-slate-400 text-base cursor-help" title="Modifier les métadonnées et le contenu">info</span>
+</td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Supprimer Document
+                                            <span class="material-symbols-outlined text-slate-400 text-base cursor-help" title="Suppression permanente ou mise à la corbeille">info</span>
+</td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+<!-- Category: Analytics -->
+<tr class="bg-slate-50/50 dark:bg-slate-800/20">
+<td class="px-5 py-3 text-xs font-black text-primary uppercase tracking-widest sticky left-0" colspan="5">Analytique &amp; Rapports</td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Voir Statistiques
+                                        </td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Exporter Rapports
+                                        </td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+<!-- Category: Users -->
+<tr class="bg-slate-50/50 dark:bg-slate-800/20">
+<td class="px-5 py-3 text-xs font-black text-primary uppercase tracking-widest sticky left-0" colspan="5">Administration Utilisateurs</td>
+</tr>
+<tr>
+<td class="p-5 text-sm font-medium sticky left-0 bg-white dark:bg-slate-900 flex items-center gap-2">
+                                            Gérer Comptes
+                                        </td>
+<td class="p-5 text-center"><input checked="" class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+<td class="p-5 text-center"><input class="matrix-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary focus:ring-offset-background-dark bg-transparent" type="checkbox"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Sidebar Security & Rate Limiting -->
+<div class="space-y-6">
+<!-- Security Groups Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">shield</span>
+                                Groupes de Sécurité
+                            </h3>
+<button class="text-xs text-primary font-bold hover:underline">Voir tout</button>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-center justify-between">
+<div>
+<p class="text-xs font-bold">IP de Confiance</p>
+<p class="text-[10px] text-slate-500">12 adresses actives</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">arrow_forward</span>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-center justify-between">
+<div>
+<p class="text-xs font-bold">VPN Obligatoire</p>
+<p class="text-[10px] text-green-500 font-medium">Activé (Admin)</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">arrow_forward</span>
+</div>
+<div class="p-3 border border-dashed border-slate-300 dark:border-slate-700 rounded-lg text-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="text-xs font-bold text-slate-500">+ Ajouter un groupe</span>
+</div>
+</div>
+</div>
+<!-- Rate Limiting Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">bolt</span>
+                                Rate Limiting
+                            </h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Requêtes par minute (Visiteur)</label>
+<div class="flex items-center gap-3">
+<input class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full appearance-none accent-primary" type="range"/>
+<span class="text-xs font-bold min-w-[30px]">60</span>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Requêtes par minute (Contributeur)</label>
+<div class="flex items-center gap-3">
+<input class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full appearance-none accent-primary" type="range"/>
+<span class="text-xs font-bold min-w-[30px]">300</span>
+</div>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium">Protection Brute-force</span>
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-primary">
+<span class="inline-block h-3 w-3 translate-x-5 transform rounded-full bg-white transition"></span>
+</button>
+</div>
+</div>
+</div>
+<!-- Information Alert -->
+<div class="bg-primary/10 border border-primary/20 p-4 rounded-xl">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<p class="text-xs font-bold text-primary mb-1">Droit d'Héritage</p>
+<p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    Les permissions cochées sont automatiquement héritées par les sous-groupes sauf mention contraire explicite.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Unsaved Changes Bar (Toast-like UI) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-8 z-50 animate-bounce-subtle">
+<p class="text-sm font-medium">Vous avez des modifications non enregistrées.</p>
+<div class="flex items-center gap-3">
+<button class="text-sm font-bold opacity-70 hover:opacity-100">Réinitialiser</button>
+<button class="bg-primary px-4 py-1.5 rounded-lg text-sm font-bold text-white shadow-lg shadow-primary/30">Review &amp; Save</button>
+</div>
+</div>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden opacity-50 dark:opacity-20">
+<div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute top-[40%] -right-[10%] w-[30%] h-[30%] bg-primary/5 blur-[100px] rounded-full"></div>
+</div>
+</body></html>

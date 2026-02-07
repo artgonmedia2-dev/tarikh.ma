@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion des Utilisateurs et Rôles - Tarikh.ma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25f478",
+                        "background-light": "#f5f8f7",
+                        "background-dark": "#102217",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111814;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #28392f;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #25f478;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen font-display">
+<!-- Main Layout Container -->
+<div class="flex h-screen overflow-hidden">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Top Navigation Bar (Integrated) -->
+<header class="flex items-center justify-between border-b border-solid border-[#28392f] bg-[#111814] px-8 py-4 z-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">history_edu</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">Tarikh.ma</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6 ml-4">
+<a class="text-slate-400 hover:text-white text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-white border-b-2 border-primary pb-1 text-sm font-medium" href="#">Utilisateurs</a>
+<a class="text-slate-400 hover:text-white text-sm font-medium transition-colors" href="#">Contenu</a>
+<a class="text-slate-400 hover:text-white text-sm font-medium transition-colors" href="#">Statistiques</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-[#28392f] text-white hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-[#28392f] text-white hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-10 w-px bg-[#28392f] mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-white leading-none">Admin Zakaria</p>
+<p class="text-xs text-slate-400 mt-1">Super Administrateur</p>
+</div>
+<div class="aspect-square bg-cover bg-center rounded-full size-10 border-2 border-primary/50" data-alt="Photo de profil de l'administrateur" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZj1qBaItC1O8H2PXWpbaNuQCJqr9cc83eoGVD-T_UgTcYnA2CO0JtbNYCfksdDUH2iY2WcLsP-AZ-HPoGUorMzBnU3eUk2hsE2c2oczgZF8pi_LtLMIOFxaHAnpW9Z1IV3-ikohY4VSOEoSbTHUpPASBEt2USw6-ImL9mFHBCadyZGojXROsz9cJ8i_nmpFLm-PNYpdcvZx16JcvjwwWJjCAfl0qwxxNpKTIiyt0yNuAgHOrg6VYquC4PTUMDZGz58U5LEzJIoBLo");'></div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content Container -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- Breadcrumbs & Header -->
+<div class="mb-8">
+<div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
+<span>Accueil</span>
+<span class="material-symbols-outlined text-xs leading-none">chevron_right</span>
+<span>Administration</span>
+<span class="material-symbols-outlined text-xs leading-none">chevron_right</span>
+<span class="text-primary">Utilisateurs</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-3xl font-extrabold text-white tracking-tight">Gestion des Utilisateurs</h1>
+<p class="text-slate-400 mt-1">Contrôlez les accès et définissez les permissions de votre équipe éditoriale.</p>
+</div>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:shadow-[0_0_15px_rgba(37,244,120,0.4)] transition-all">
+<span class="material-symbols-outlined">person_add</span>
+<span>Ajouter un utilisateur</span>
+</button>
+</div>
+</div>
+<!-- Table Controls -->
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-[#1b2720] border-none rounded-lg pl-10 pr-4 py-2.5 text-white focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500" placeholder="Rechercher par nom, email ou rôle..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-[#1b2720] border border-[#28392f] text-slate-300 rounded-lg hover:bg-[#28392f] transition-all">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="text-sm font-medium">Filtrer</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-[#1b2720] border border-[#28392f] text-slate-300 rounded-lg hover:bg-[#28392f] transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+<span class="text-sm font-medium">Exporter</span>
+</button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-[#111814] rounded-xl border border-[#28392f] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#1b2720]/50 text-slate-400 text-xs font-bold uppercase tracking-wider">
+<th class="px-6 py-4 border-b border-[#28392f]">Utilisateur</th>
+<th class="px-6 py-4 border-b border-[#28392f]">Rôle</th>
+<th class="px-6 py-4 border-b border-[#28392f]">Statut du compte</th>
+<th class="px-6 py-4 border-b border-[#28392f]">Dernière connexion</th>
+<th class="px-6 py-4 border-b border-[#28392f] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#28392f]">
+<!-- Row 1 -->
+<tr class="group hover:bg-[#1b2720]/30 transition-all cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="Avatar de Ahmed Alami" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMwJ9MdeIxN5DmBLJws2Vrl7nHrWI4HovA4dVVaHsT5Q2A-w8OQ4NeqA4KgXpEpRquz9sieiOlsnNW-b3BneEy3cAbD4v1WvvPqWZu6cEvVHuvyZjWCnJPe9nekP5l0h9wlTEJKUw7Mzhs_3Rmb6AwE5onWvA2UQjvuM-nAS9CHuDru2_h-jVRTxqNxn4FP-qRxnSzMVtrmpiyfCIh_Q3ZwEnHBf_ogT4tGSYZ84gjvCEMli3bohhLtXF2LJqaIlFQ4hZMJejCAtS1"/>
+</div>
+<div>
+<p class="text-white font-bold text-sm">Ahmed Alami</p>
+<p class="text-slate-400 text-xs">ahmed@tarikh.ma</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full border border-primary/20 uppercase tracking-tighter">Administrateur</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm text-slate-200">Actif</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-400">Il y a 2 heures</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-[#1b2720]/30 transition-all cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="Avatar de Sanaa Bennani" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFjsvEJjunC13xTA05LTc5JeXwh3tMEZ4bu3ZU8Leiw2BN9jrmqGP1Ti3IH3ULm2K5n_n_M3sNrae3iuluIRIvDpW0JIyJFpFc5vw3ll_Ycytl_a95rnjEZe-It-R6zE1Smxr0AoUk1yseXrsKsREnWLouCXZUqhbSevL2QTjYImPtmSWkiWvHKcNEseyjqn-wu0zdn4GahTXex21__nk_Aol5dBG264G_SibmUHq0oDVD7zbOS6stvWTG6J82TEHDi4y4MeLUd9Gh"/>
+</div>
+<div>
+<p class="text-white font-bold text-sm">Sanaa Bennani</p>
+<p class="text-slate-400 text-xs">sanaa@tarikh.ma</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[11px] font-bold rounded-full border border-blue-500/20 uppercase tracking-tighter">Éditeur</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-sm text-slate-200">Actif</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-400">Hier à 14:30</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-[#1b2720]/30 transition-all cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/30 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="Avatar de Driss Idrissi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8UBT35zJpaiTQERLe3GDv3ZnfZXdo33WevNaUS3FB-34TGE7-d2ukE2lPu0DmoPDE-Z4RtBxYXedz-bTXWSyNV5W6Kyy4kBGaMVjbwTpqJIJoRh8iKg5eU-w8Vlfskz2pxLzp-9iVr9Zbn2eo1V4gs6vFEZlXhZKVJo0iaQPN-uD2S2QvVs8Kbz6d058bR4jItAI87Id5MojaVImdu5qs9QoKTLaCzJKYW4Nd647MvhKrWlMjbJPBt-Sz4lHACPYvAKsTxBBR5EOF"/>
+</div>
+<div>
+<p class="text-white font-bold text-sm">Driss Idrissi</p>
+<p class="text-slate-400 text-xs">driss@tarikh.ma</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-slate-500/10 text-slate-400 text-[11px] font-bold rounded-full border border-slate-500/20 uppercase tracking-tighter">Lecteur</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-red-500"></div>
+<span class="text-sm text-slate-200">Suspendu</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-400">Il y a 5 jours</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-[#1b2720]/30 transition-all cursor-pointer bg-[#1b2720]/20">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="Avatar de Leila Toumi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEwcQzbDkuGOjzb4JZ4IWF2hQfJi3hlt4t9FSGBXuWrzEDtlSXJH0Wjs_n1XTWiM5Al9jdfYS3wAgxg64Yn9zf8KISgwtbVZZzCw-6Cej53IWE2dbj2P2Spx0A7N6WDQGUXQPK3M5VGUuPzaY9Exo1_iaAeU--oLEf8_TXJ3Zf1VyEM6_WVe85TqgCk-U6BYAqbeiOP66_7WX53m1uy_i48J3YhNgrU48UbxMMkjCbMlRLn6DCrmw7EWiPBxDXOpiiru90DN_3uaTN"/>
+</div>
+<div>
+<p class="text-white font-bold text-sm">Leila Toumi</p>
+<p class="text-slate-400 text-xs">leila@tarikh.ma</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-[11px] font-bold rounded-full border border-blue-500/20 uppercase tracking-tighter">Éditeur</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-sm text-slate-200">Actif</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-400">En ligne</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary">
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="mt-6 flex items-center justify-between">
+<p class="text-slate-400 text-sm">Affichage de <span class="text-white font-bold">1 à 4</span> sur 24 utilisateurs</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-[#1b2720] border border-[#28392f] text-slate-400 disabled:opacity-50" disabled="">Précédent</button>
+<button class="px-3 py-1.5 rounded bg-primary/20 text-primary border border-primary/30">1</button>
+<button class="px-3 py-1.5 rounded bg-[#1b2720] border border-[#28392f] text-slate-400 hover:text-white">2</button>
+<button class="px-3 py-1.5 rounded bg-[#1b2720] border border-[#28392f] text-slate-400 hover:text-white">Suivant</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Sliding Sidebar Panel (Gestion des Rôles) -->
+<aside class="w-96 bg-[#111814] border-l border-[#28392f] flex flex-col shadow-2xl z-20">
+<div class="p-6 border-b border-[#28392f] flex items-center justify-between">
+<div>
+<h2 class="text-xl font-bold text-white tracking-tight">Gestion des Rôles</h2>
+<p class="text-xs text-slate-400 mt-1">Configuration : <span class="text-primary font-bold">Éditeur</span></p>
+</div>
+<button class="size-8 rounded-full bg-[#1b2720] flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Role Overview Card -->
+<div class="bg-[#1b2720] p-4 rounded-xl border border-[#28392f]">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-blue-400">shield_with_heart</span>
+<h3 class="font-bold text-white">Niveau de privilèges</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">
+                        Le rôle d'éditeur permet de créer, modifier et publier du contenu historique. Il ne possède pas de droits de suppression globale.
+                    </p>
+</div>
+<!-- Permission List -->
+<div>
+<h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Permissions du rôle</h3>
+<div class="space-y-4">
+<!-- Permission Item 1 -->
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-white">Édition de contenu</p>
+<p class="text-xs text-slate-400">Modifier les articles et documents existants.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-10 h-5 bg-primary rounded-full shadow-inner"></div>
+<div class="absolute left-5 top-0.5 bg-white size-4 rounded-full shadow transition-all"></div>
+</div>
+</div>
+<!-- Permission Item 2 -->
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-white">Publication directe</p>
+<p class="text-xs text-slate-400">Publier sans validation d'un admin.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-10 h-5 bg-[#28392f] rounded-full shadow-inner"></div>
+<div class="absolute left-0.5 top-0.5 bg-slate-500 size-4 rounded-full shadow transition-all"></div>
+</div>
+</div>
+<!-- Permission Item 3 -->
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-white">Accès aux statistiques</p>
+<p class="text-xs text-slate-400">Consulter les chiffres d'audience.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-10 h-5 bg-primary rounded-full shadow-inner"></div>
+<div class="absolute left-5 top-0.5 bg-white size-4 rounded-full shadow transition-all"></div>
+</div>
+</div>
+<!-- Permission Item 4 -->
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-white">Droit de suppression</p>
+<p class="text-xs text-slate-400">Supprimer définitivement du contenu.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-10 h-5 bg-[#28392f] rounded-full shadow-inner"></div>
+<div class="absolute left-0.5 top-0.5 bg-slate-500 size-4 rounded-full shadow transition-all"></div>
+</div>
+</div>
+<!-- Permission Item 5 -->
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-white">Gestion technique</p>
+<p class="text-xs text-slate-400">Accès aux paramètres du serveur API.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<div class="w-10 h-5 bg-[#28392f] rounded-full shadow-inner"></div>
+<div class="absolute left-0.5 top-0.5 bg-slate-500 size-4 rounded-full shadow transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action in Drawer -->
+<div class="pt-4 space-y-3">
+<button class="w-full py-3 bg-primary/10 border border-primary/30 text-primary font-bold rounded-lg hover:bg-primary/20 transition-all">
+                        Sauvegarder les permissions
+                    </button>
+<button class="w-full py-2 text-slate-500 text-sm hover:text-white transition-colors">
+                        Réinitialiser par défaut
+                    </button>
+</div>
+</div>
+<!-- Quick Summary Panel -->
+<div class="p-6 bg-[#0c130f] border-t border-[#28392f]">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs text-slate-500">Utilisateurs avec ce rôle</span>
+<span class="text-xs font-bold text-white">12 membres</span>
+</div>
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full border-2 border-[#0c130f] bg-slate-700" data-alt="Avatar utilisateur 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnJ3XGvzDh-Ql0cEfWV4fjuVskqSTZbIKIgVE2VYeKpLOVIpNBa2Xtv5EWHM7wLmMZPByVn7Y0yzJ4Oas_wGS2PuJ41mYvKLENADmcVdYqXwgZu1Xqq-6zCZ48Zvn0NupBhwrMhQgBtW68u3RsLIUkC9xFJLcNtsFpgjiOZM6LgNbKPMEnt4ufEDtFt_tLxIDE2KThxjUqNWUvg4trF2YYHpNvXN3W7ha2tnDuOyrD3CQyB4q8Wx6GHRbNIxTmcA2tg9PiQE-9VyFB"); background-size: cover;'></div>
+<div class="size-7 rounded-full border-2 border-[#0c130f] bg-slate-700" data-alt="Avatar utilisateur 2" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBQWdZ68o5FF436ROr3dWf7U606uqUtbnHqAk-v7--o5bTjAPSnxaWkpSf9DfTAFoG4iW6hjBAcBKpxyos9jJqwPsAZPL6Kr6rZ4TQLVF27vYZ9nC9NEdQJGSSOUN7OAjjNp3YgQF9yCa8DKFvwJlYUH1dYeey_GmoV0Jfev3OW7MiBp3MAwHJZL8vyqDypyZOJNLW2vPiuFN-ZZ_5Xo3iIXWVky4X3JCyUlAY0hKDqZ16XMlIogQ-TlxnCdAYkzHCJklZckfmnzK2"); background-size: cover;'></div>
+<div class="size-7 rounded-full border-2 border-[#0c130f] bg-slate-700" data-alt="Avatar utilisateur 3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZBeVxLMg5cyR1Nm3LF6RCEomV6Pcs907YKeK1bJGtsqpFJbJGaZwRkPihd4_JYO03kfdDefMnIDHLEacwlMMXQaVznQE2EE6z3zm46MY3EOFdcueJOAA010Qwk_DiUpau4_j5SMOnIIb8vbReb9_oQooZZ_nd6vu-7LcX5SK5mypPtSC8kkwYXpOMs6wydt1xOwgRJI4IwNpAOaTSnnBI7L42NSMLK7Xs83VTqU_XJOp7v3p2hyN6i9Ounohg7vs4jeJh7fD68dRg"); background-size: cover;'></div>
+<div class="size-7 rounded-full border-2 border-[#0c130f] bg-slate-800 flex items-center justify-center text-[10px] text-slate-400 font-bold">+9</div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>

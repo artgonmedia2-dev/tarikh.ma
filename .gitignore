@@ -1,0 +1,32 @@
+# OS & IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+~$*
+
+# Env (ne pas versionner les secrets)
+.env
+.env.local
+.env.*.local
+
+# Dépendances
+node_modules/
+vendor/
+
+# Build & cache
+dist/
+build/
+*.log
+.cache/
+
+# Laravel (si présent à la racine)
+storage/*.key
+.phpunit.result.cache
+
+# Frontend
+frontend/dist/
+frontend/node_modules/
+
+# Fichiers Word temporaires (le cahier des charges .docx reste versionné)
+~$*
