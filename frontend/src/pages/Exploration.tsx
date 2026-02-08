@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { documentsApi, themesApi, regionsApi, type DocumentItem } from '@/api/client';
+import { documentsApi, themesApi, type DocumentItem } from '@/api/client';
 
 export function Exploration() {
   const [data, setData] = useState<{ data: DocumentItem[]; current_page: number; last_page: number; total: number; per_page: number } | null>(null);
   const [themes, setThemes] = useState<{ id: number; name: string; slug: string }[]>([]);
-  const [regions, setRegions] = useState<{ id: number; name: string; slug: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const [type, setType] = useState('');
   const [themeId, setThemeId] = useState<number | ''>('');
-  const [regionId, setRegionId] = useState<number | ''>('');
-  const [year, setYear] = useState('');
-  const [language, setLanguage] = useState('');
 
   useEffect(() => {
     themesApi.list().then(setThemes).catch(() => []);
-    regionsApi.list().then(setRegions).catch(() => []);
   }, []);
 
   useEffect(() => {
@@ -29,14 +24,11 @@ export function Exploration() {
         q: q || undefined,
         type: type || undefined,
         theme_id: themeId || undefined,
-        region_id: regionId || undefined,
-        year: year || undefined,
-        language: language || undefined,
       })
       .then((res) => setData(res))
       .catch(() => setData({ data: [], current_page: 1, last_page: 1, total: 0, per_page: 12 }))
       .finally(() => setLoading(false));
-  }, [page, q, type, themeId, regionId, year, language]);
+  }, [page, q, type, themeId]);
 
   return (
     <div className="min-h-screen bg-parchment paper-texture zellij-pattern">
@@ -160,5 +152,6 @@ export function Exploration() {
           </div>
         </div>
       </div>
-      );
+    </div>
+  );
 }
