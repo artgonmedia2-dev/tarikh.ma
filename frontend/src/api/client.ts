@@ -87,6 +87,17 @@ export type DocumentItem = {
   pages_converted_at?: string | null;
 };
 
+export type BannerItem = {
+  id: number;
+  title: string;
+  image_path: string;
+  image_url: string;
+  link_url: string | null;
+  is_active: boolean;
+  order: number;
+  created_at: string;
+};
+
 export type Paginated<T> = {
   data: T[];
   current_page: number;
@@ -106,6 +117,10 @@ export const documentsApi = {
     api<Paginated<DocumentItem>>('/documents', { params: params as Record<string, string | number | undefined> }),
   get: (id: string) =>
     api<{ document: DocumentItem & { tags?: unknown[] }; similar: DocumentItem[] }>(`/documents/${id}`),
+};
+
+export const bannersApi = {
+  list: () => api<BannerItem[]>('/banners'),
 };
 
 export type StatsResponse = {
@@ -144,5 +159,12 @@ export const adminApi = {
     update: (id: number, data: { name: string; email: string; role: string; password?: string; password_confirmation?: string }) =>
       api<{ id: number; name: string; email: string; role: string }>(`/admin/users/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
     delete: (id: number) => api<void>(`/admin/users/${id}`, { method: 'DELETE' }),
+  },
+  banners: {
+    list: () => api<BannerItem[]>('/admin/banners'),
+    create: (form: FormData) => api<BannerItem>('/admin/banners', { method: 'POST', body: form }),
+    get: (id: number) => api<BannerItem>(`/admin/banners/${id}`),
+    update: (id: number, form: FormData) => api<BannerItem>(`/admin/banners/${id}`, { method: 'POST', body: form, params: { _method: 'PUT' } }),
+    delete: (id: number) => api<void>(`/admin/banners/${id}`, { method: 'DELETE' }),
   },
 };

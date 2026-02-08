@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { documentsApi, type DocumentItem } from '@/api/client';
+import { documentsApi, bannersApi, type DocumentItem, type BannerItem } from '@/api/client';
 
 const HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuBpIX9eFdB_PDh8VX_XwGjMSnshbOdlEt_5DyZZTzLhWCu14dvdgOfYRVHufwRim5HWN-y5zws2t_cehuoOgq8wbPGmbFt0MiSYdskfKDVjfyDnjHab714Df_83fOcvuf1-aFvJf3SF8i-LTMyjeRU9QNdkAz76uFM2RfX9-kCpBN2IZ2rc3bcaaum0R0-rYZtIJ2HZ0l4Fqzj5DJBkkYXeqxZN5cLU-zySzFI1G7niZ0Xs3-fUUUrMkBwjFTFdQY4XJrC_3-Wn6__B';
@@ -70,6 +70,7 @@ export function Accueil() {
   const [search, setSearch] = useState('');
   const [latestDocs, setLatestDocs] = useState<DocumentItem[]>([]);
   const [loadingLatest, setLoadingLatest] = useState(true);
+  const [banners, setBanners] = useState<BannerItem[]>([]);
 
   useEffect(() => {
     documentsApi
@@ -77,6 +78,11 @@ export function Accueil() {
       .then((res) => setLatestDocs(res.data))
       .catch((err) => console.error('Erreur chargement archives:', err))
       .finally(() => setLoadingLatest(false));
+
+    bannersApi
+      .list()
+      .then(setBanners)
+      .catch((err) => console.error('Erreur chargement bannières:', err));
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -138,6 +144,43 @@ export function Accueil() {
         </div>
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background-dark to-transparent pointer-events-none" />
       </section>
+
+      {/* Bannière Publicitaire Dynamique */}
+      {banners.length > 0 && (
+        <section className="bg-background-light py-8 px-6 border-b border-slate-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+              {banners.map((banner) => (
+                <a
+                  key={banner.id}
+                  href={banner.link_url || '#'}
+                  target={banner.link_url ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="min-w-full md:min-w-[800px] lg:min-w-full h-32 md:h-48 rounded-2xl overflow-hidden snap-center block relative group border-2 border-accent-gold/5 hover:border-accent-gold/20 transition-all shadow-lg hover:shadow-xl"
+                >
+                  <img
+                    src={banner.image_url}
+                    alt={banner.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent flex items-center p-8 md:p-12">
+                    <div className="max-w-xl">
+                      <h3 className="text-white text-xl md:text-3xl font-black serif drop-shadow-lg group-hover:translate-x-2 transition-transform">
+                        {banner.title}
+                      </h3>
+                    </div>
+                  </div>
+                  {banner.link_url && (
+                    <div className="absolute bottom-4 right-8 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-white text-xs font-bold flex items-center gap-2 group-hover:bg-white group-hover:text-primary transition-all">
+                      En savoir plus <span className="material-symbols-outlined text-sm">open_in_new</span>
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Explorer par Catégorie */}
       <section className="py-24 px-6 bg-parchment paper-texture zellij-pattern" id="categories">

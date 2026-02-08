@@ -19,6 +19,7 @@ Route::middleware('throttle:60,1')->group(function () {
     });
     Route::get('documents', [ApiDocumentController::class, 'index']);
     Route::get('documents/{document}', [ApiDocumentController::class, 'show']);
+    Route::get('banners', [\App\Http\Controllers\Api\BannerController::class, 'index']);
 });
 
 Route::middleware('throttle:120,1')->get('documents/{document}/stream', [ApiDocumentController::class, 'stream'])
@@ -47,6 +48,7 @@ Route::middleware(['auth:sanctum', 'role:admin,editor', 'throttle:60,1'])->prefi
     Route::get('documents/{document}/conversion-progress', [AdminDocumentController::class, 'conversionProgress'])->name('admin.documents.conversion-progress');
     Route::post('documents/{document}/regenerate-pages', [AdminDocumentController::class, 'regeneratePages'])->name('admin.documents.regenerate-pages');
     Route::apiResource('documents', AdminDocumentController::class);
+    Route::apiResource('banners', \App\Http\Controllers\Api\Admin\BannerController::class);
 });
 Route::middleware(['auth:sanctum', 'role:admin', 'throttle:60,1'])->prefix('admin')->group(function () {
     Route::apiResource('users', AdminUserController::class);

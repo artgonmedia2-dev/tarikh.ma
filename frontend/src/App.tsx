@@ -16,6 +16,7 @@ import { AdminDocumentForm } from '@/pages/admin/AdminDocumentForm';
 import { AdminUsers } from '@/pages/admin/AdminUsers';
 import { AdminUserForm } from '@/pages/admin/AdminUserForm';
 import { AdminParametres } from '@/pages/admin/AdminParametres';
+import { AdminBanners } from '@/pages/admin/AdminBanners';
 import { useAuthStore } from '@/stores/authStore';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="users" element={<AdminUsers />} />
         <Route path="users/new" element={<AdminUserForm />} />
         <Route path="users/:id/edit" element={<AdminUserForm />} />
+        <Route path="banners" element={<AdminBanners />} />
         <Route path="parametres" element={<AdminParametres />} />
       </Route>
       <Route path="/" element={<Layout />}>
