@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
 
 export function AdminLayout() {
@@ -56,21 +56,34 @@ export function AdminLayout() {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>monitoring</span>
             <span className="text-sm font-semibold">Analytiques</span>
           </NavLink>
-          <Link
+          <NavLink
             to="/admin/documents"
-            className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isActive ? 'bg-admin-primary/10 text-admin-primary' : 'text-slate-600 hover:bg-slate-100'}`
+            }
           >
             <span className="material-symbols-outlined">description</span>
             <span className="text-sm font-medium">Documents</span>
-          </Link>
+          </NavLink>
+          <NavLink
+            to="/admin/banners"
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isActive ? 'bg-admin-primary/10 text-admin-primary' : 'text-slate-600 hover:bg-slate-100'}`
+            }
+          >
+            <span className="material-symbols-outlined">ads_click</span>
+            <span className="text-sm font-medium">Bannières</span>
+          </NavLink>
           {user.role === 'admin' && (
-            <Link
+            <NavLink
               to="/admin/users"
-              className="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isActive ? 'bg-admin-primary/10 text-admin-primary' : 'text-slate-600 hover:bg-slate-100'}`
+              }
             >
               <span className="material-symbols-outlined">group</span>
               <span className="text-sm font-medium">Utilisateurs</span>
-            </Link>
+            </NavLink>
           )}
           <div className="pt-4 border-t border-slate-100 mt-4">
             <p className="px-3 text-[10px] font-bold text-slate-400 uppercase mb-2">Support & Admin</p>
