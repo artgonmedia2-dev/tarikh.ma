@@ -319,7 +319,7 @@ body {
 /* À propos — timeline */
 .timeline-line {
   width: 2px;
-  background: linear-gradient(to bottom, #1152d4 0%, #1152d4 80%, transparent 100%);
+  background: linear-gradient(to bottom, #7e6050 0%, #7e6050 80%, transparent 100%);
 }
 
 /* Admin document form — stepper */
