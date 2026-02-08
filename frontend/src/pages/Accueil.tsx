@@ -152,11 +152,11 @@ export function Accueil() {
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/95 via-secondary/40 to-transparent" />
                 <div className="absolute bottom-0 p-8">
-                  <span className={`material-symbols-outlined text-accent-gold text-4xl mb-4 block`}>{cat.icon}</span>
-                  <h3 className="text-white text-2xl font-bold mb-2 serif">{cat.title}</h3>
-                  <p className="text-white/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className={`material-symbols-outlined text-primary text-4xl mb-4 block`}>{cat.icon}</span>
+                  <h3 className="text-primary text-2xl font-bold mb-2 serif">{cat.title}</h3>
+                  <p className="text-primary/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {cat.description}
                   </p>
                 </div>
