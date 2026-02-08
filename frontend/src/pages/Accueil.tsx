@@ -56,7 +56,7 @@ export function Accueil() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
+      <section className="relative min-h-[95vh] md:min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 hero-gradient z-10" />
           <img
@@ -65,16 +65,16 @@ export function Accueil() {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="relative z-20 max-w-4xl px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/20 border border-accent-gold/30 text-accent-gold text-xs font-bold uppercase tracking-widest mb-6">
+        <div className="relative z-20 max-w-5xl px-6 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-gold/20 border border-accent-gold/30 text-accent-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in">
             <span className="material-symbols-outlined text-sm">verified</span>
             Patrimoine National Numérisé
           </div>
-          <h1 className="text-white text-5xl md:text-7xl font-black leading-[1.1] mb-6 tracking-tight vintage-text-shadow serif">
+          <h1 className="text-white text-6xl md:text-8xl lg:text-9xl font-black leading-[1.05] mb-8 tracking-tighter vintage-text-shadow serif">
             Préserver l&apos;Histoire, <br />
             <span className="text-accent-gold italic">Éclairer l&apos;Avenir</span>
           </h1>
-          <p className="text-parchment/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed serif underline decoration-accent-gold/20 decoration-1 underline-offset-8">
+          <p className="text-parchment/90 text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto leading-relaxed serif underline decoration-accent-gold/20 decoration-1 underline-offset-[12px]">
             Explorez les archives impériales du Royaume. Une collection unique de manuscrits rares, traités séculaires et photographies d&apos;époque.
           </p>
           <div className="relative max-w-2xl mx-auto">
@@ -203,8 +203,8 @@ export function Accueil() {
                 >
                   <div
                     className={`w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center transition-all shadow-sm mb-4 bg-white ${d.active
-                        ? 'ring-4 ring-primary/40 border-primary/30 text-slate-800'
-                        : 'text-slate-700 group-hover:ring-4 group-hover:ring-slate-200'
+                      ? 'ring-4 ring-primary/40 border-primary/30 text-slate-800'
+                      : 'text-slate-700 group-hover:ring-4 group-hover:ring-slate-200'
                       }`}
                   >
                     <span className="material-symbols-outlined text-3xl">{d.icon}</span>
