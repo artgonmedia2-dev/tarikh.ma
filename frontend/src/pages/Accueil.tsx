@@ -70,17 +70,17 @@ export function Accueil() {
             <span className="material-symbols-outlined text-sm">verified</span>
             Patrimoine National Numérisé
           </div>
-          <h1 className="text-white text-5xl md:text-7xl font-black leading-[1.1] mb-6 tracking-tight">
+          <h1 className="text-white text-5xl md:text-7xl font-black leading-[1.1] mb-6 tracking-tight vintage-text-shadow serif">
             Préserver l&apos;Histoire, <br />
-            <span className="text-accent-gold">Éclairer l&apos;Avenir</span>
+            <span className="text-accent-gold italic">Éclairer l&apos;Avenir</span>
           </h1>
-          <p className="text-parchment/80 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
-            Explorez les archives impériales du Maroc. Une collection unique de manuscrits rares, cartes séculaires et photographies d&apos;époque.
+          <p className="text-parchment/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed serif underline decoration-accent-gold/20 decoration-1 underline-offset-8">
+            Explorez les archives impériales du Royaume. Une collection unique de manuscrits rares, traités séculaires et photographies d&apos;époque.
           </p>
           <div className="relative max-w-2xl mx-auto">
-            <form onSubmit={handleSearch} className="flex flex-col md:flex-row items-center bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-xl gap-2 shadow-2xl">
+            <form onSubmit={handleSearch} className="flex flex-col md:flex-row items-center bg-black/30 backdrop-blur-xl border border-white/10 p-2 rounded-xl gap-2 shadow-2xl">
               <div className="flex flex-1 items-center px-4 gap-3 w-full">
-                <span className="material-symbols-outlined text-white/50">search</span>
+                <span className="material-symbols-outlined text-accent-gold">search</span>
                 <input
                   type="text"
                   value={search}
@@ -91,12 +91,12 @@ export function Accueil() {
               </div>
               <button
                 type="submit"
-                className="w-full md:w-auto bg-accent-gold hover:bg-yellow-600 text-emerald-deep font-bold px-8 py-3 rounded-lg transition-all flex items-center justify-center gap-2"
+                className="w-full md:w-auto bg-accent-gold hover:bg-yellow-700 text-background-dark font-black px-8 py-3 rounded-lg transition-all flex items-center justify-center gap-2 uppercase tracking-tighter"
               >
                 Explorer
               </button>
             </form>
-            <div className="mt-4 flex flex-wrap justify-center gap-4 text-white/60 text-xs">
+            <div className="mt-4 flex flex-wrap justify-center gap-4 text-parchment/60 text-xs">
               <span>Tendances :</span>
               <Link to="/archives?q=almohades" className="hover:text-accent-gold transition-colors underline decoration-accent-gold/40">Manuscrits Almohades</Link>
               <Link to="/archives?q=Fès" className="hover:text-accent-gold transition-colors underline decoration-accent-gold/40">Cartographie de Fès</Link>
@@ -108,15 +108,15 @@ export function Accueil() {
       </section>
 
       {/* Explorer par Catégorie */}
-      <section className="py-24 px-6 bg-white" id="categories">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-24 px-6 bg-parchment paper-texture zellij-pattern" id="categories">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div>
-              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 italic">Explorer par Catégorie</h2>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 italic serif">Explorer l&apos;Héritage</h2>
               <div className="h-1.5 w-24 bg-accent-gold rounded-full" />
             </div>
             <Link to="/archives" className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all">
-              Voir tout l&apos;inventaire <span className="material-symbols-outlined">arrow_forward</span>
+              Consulter les manuscrits <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -124,18 +124,18 @@ export function Accueil() {
               <Link
                 key={cat.title}
                 to={cat.to}
-                className="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer block"
+                className="group relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer block border-4 border-white shadow-xl shadow-accent-gold/10"
               >
                 <img
                   src={cat.image}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/90 via-emerald-deep/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/20 to-transparent" />
                 <div className="absolute bottom-0 p-8">
                   <span className={`material-symbols-outlined text-accent-gold text-4xl mb-4 block`}>{cat.icon}</span>
-                  <h3 className="text-white text-2xl font-bold mb-2">{cat.title}</h3>
-                  <p className="text-white/70 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 className="text-white text-2xl font-bold mb-2 serif">{cat.title}</h3>
+                  <p className="text-white/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {cat.description}
                   </p>
                 </div>
@@ -202,11 +202,10 @@ export function Accueil() {
                   className="flex flex-col items-center group cursor-pointer"
                 >
                   <div
-                    className={`w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center transition-all shadow-sm mb-4 bg-white ${
-                      d.active
+                    className={`w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center transition-all shadow-sm mb-4 bg-white ${d.active
                         ? 'ring-4 ring-primary/40 border-primary/30 text-slate-800'
                         : 'text-slate-700 group-hover:ring-4 group-hover:ring-slate-200'
-                    }`}
+                      }`}
                   >
                     <span className="material-symbols-outlined text-3xl">{d.icon}</span>
                   </div>

@@ -39,150 +39,126 @@ export function Exploration() {
   }, [page, q, type, themeId, regionId, year, language]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
-      <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-2">Exploration des archives</h1>
-      <p className="text-slate-500 dark:text-slate-400 mb-8">{data ? `${data.total} document(s)` : 'Chargement…'}</p>
+    <div className="min-h-screen bg-parchment paper-texture zellij-pattern">
+      <div className="max-w-7xl mx-auto px-6 py-12 relative z-10">
+        <header className="mb-12">
+          <h1 className="text-4xl font-black text-slate-900 mb-2 serif vintage-text-shadow italic">Exploration des Archives</h1>
+          <div className="h-1 w-20 bg-accent-gold rounded-full mb-4" />
+          <p className="text-slate-600 serif">{data ? `${data.total} manuscrits & documents répertoriés` : 'Chargement de la bibliothèque…'}</p>
+        </header>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        <aside className="lg:w-72 flex-shrink-0 space-y-6">
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Recherche</label>
-            <input
-              type="search"
-              placeholder="Mot-clé, ville, date..."
-              value={q}
-              onChange={(e) => { setQ(e.target.value); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Type</label>
-            <select
-              value={type}
-              onChange={(e) => { setType(e.target.value); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            >
-              <option value="">Tous</option>
-              <option value="pdf">PDF</option>
-              <option value="image">Image</option>
-              <option value="carte">Carte</option>
-              <option value="video">Vidéo</option>
-              <option value="audio">Audio</option>
-            </select>
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Thématique</label>
-            <select
-              value={themeId}
-              onChange={(e) => { setThemeId(e.target.value ? Number(e.target.value) : ''); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            >
-              <option value="">Toutes</option>
-              {themes.map((t) => (
-                <option key={t.id} value={t.id}>{t.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Région</label>
-            <select
-              value={regionId}
-              onChange={(e) => { setRegionId(e.target.value ? Number(e.target.value) : ''); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            >
-              <option value="">Toutes</option>
-              {regions.map((r) => (
-                <option key={r.id} value={r.id}>{r.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Année / Période</label>
-            <input
-              type="text"
-              placeholder="ex. 1920 ou 1920-1930"
-              value={year}
-              onChange={(e) => { setYear(e.target.value); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Langue</label>
-            <input
-              type="text"
-              placeholder="ex. arabe, français"
-              value={language}
-              onChange={(e) => { setLanguage(e.target.value); setPage(1); }}
-              className="w-full bg-slate-100 dark:bg-slate-800 border-0 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-        </aside>
-
-        <div className="flex-1 min-w-0">
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-slate-100 dark:bg-slate-800 rounded-xl h-64 animate-pulse" />
-              ))}
+        <div className="flex flex-col lg:flex-row gap-8">
+          <aside className="lg:w-72 flex-shrink-0 space-y-6">
+            <div className="bg-white rounded-xl border border-accent-gold/20 p-5 shadow-sm">
+              <label className="block text-[10px] font-black text-accent-gold uppercase tracking-[0.2em] mb-3">Recherche</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-accent-gold text-lg">search</span>
+                <input
+                  type="search"
+                  placeholder="Mot-clé, ville, date..."
+                  value={q}
+                  onChange={(e) => { setQ(e.target.value); setPage(1); }}
+                  className="w-full bg-parchment/50 border-0 rounded-lg pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-accent-gold outline-none serif"
+                />
+              </div>
             </div>
-          ) : data && data.data.length > 0 ? (
-            <>
+            <div className="bg-white rounded-xl border border-accent-gold/20 p-5 shadow-sm">
+              <label className="block text-[10px] font-black text-accent-gold uppercase tracking-[0.2em] mb-3">Filtrer par Type</label>
+              <select
+                value={type}
+                onChange={(e) => { setType(e.target.value); setPage(1); }}
+                className="w-full bg-parchment/50 border-0 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-accent-gold outline-none serif"
+              >
+                <option value="">Tous les formats</option>
+                <option value="pdf">Manuscrits (PDF)</option>
+                <option value="image">Illustrations</option>
+                <option value="carte">Cartes Anciennes</option>
+              </select>
+            </div>
+            <div className="bg-white rounded-xl border border-accent-gold/20 p-5 shadow-sm">
+              <label className="block text-[10px] font-black text-accent-gold uppercase tracking-[0.2em] mb-3">Thématique</label>
+              <select
+                value={themeId}
+                onChange={(e) => { setThemeId(e.target.value ? Number(e.target.value) : ''); setPage(1); }}
+                className="w-full bg-parchment/50 border-0 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-accent-gold outline-none serif"
+              >
+                <option value="">Toutes les thématiques</option>
+                {themes.map((t) => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
+              </select>
+            </div>
+          </aside>
+
+          <div className="flex-1 min-w-0">
+            {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {data.data.map((doc) => (
-                  <Link
-                    key={doc.id}
-                    to={`/documents/${doc.id}`}
-                    className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:shadow-primary/10 transition-all hover:-translate-y-0.5"
-                  >
-                    <div className="h-48 bg-slate-200 dark:bg-slate-800 flex items-center justify-center relative overflow-hidden">
-                      {doc.thumbnail_url ? (
-                        <img src={doc.thumbnail_url} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                      ) : (
-                        <span className="text-5xl text-slate-400" aria-hidden>📄</span>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <span className="text-xs font-bold text-primary uppercase tracking-wider">{doc.type}</span>
-                      <h3 className="font-bold text-slate-900 dark:text-white mt-1 group-hover:text-primary transition-colors line-clamp-2">
-                        {doc.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{doc.year ?? '—'} — {doc.region?.name ?? '—'}</p>
-                      <p className="text-xs text-slate-400 mt-1">{doc.views_count} vues</p>
-                    </div>
-                  </Link>
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="bg-slate-100 dark:bg-slate-800 rounded-xl h-64 animate-pulse" />
                 ))}
               </div>
-              {data.last_page > 1 && (
-                <div className="flex justify-center gap-2 mt-10">
-                  <button
-                    type="button"
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    disabled={page <= 1}
-                    className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:border-primary"
-                  >
-                    Précédent
-                  </button>
-                  <span className="px-4 py-2 text-slate-600 dark:text-slate-400">
-                    Page {data.current_page} / {data.last_page}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setPage((p) => Math.min(data.last_page, p + 1))}
-                    disabled={page >= data.last_page}
-                    className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:border-primary"
-                  >
-                    Suivant
-                  </button>
+            ) : data && data.data.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {data.data.map((doc) => (
+                    <Link
+                      key={doc.id}
+                      to={`/documents/${doc.id}`}
+                      className="group bg-white rounded-xl border border-accent-gold/10 overflow-hidden hover:shadow-2xl hover:shadow-accent-gold/10 transition-all hover:-translate-y-1"
+                    >
+                      <div className="h-48 bg-parchment flex items-center justify-center relative overflow-hidden border-b border-accent-gold/5">
+                        {doc.thumbnail_url ? (
+                          <img src={doc.thumbnail_url} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        ) : (
+                          <span className="text-5xl opacity-40 grayscale" aria-hidden>📜</span>
+                        )}
+                        <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors" />
+                      </div>
+                      <div className="p-5">
+                        <span className="text-[10px] font-black text-accent-gold uppercase tracking-widest">{doc.type}</span>
+                        <h3 className="font-bold text-slate-900 mt-1 group-hover:text-primary transition-colors line-clamp-2 serif">
+                          {doc.title}
+                        </h3>
+                        <p className="text-[11px] text-slate-500 mt-2 font-medium">{doc.year ?? '—'} &bull; {doc.region?.name ?? 'Le Royaume'}</p>
+                        <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-50">
+                          <span className="text-[10px] text-slate-400">{doc.views_count} consultations</span>
+                          <span className="text-primary material-symbols-outlined text-sm">visibility</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-20 text-slate-500 dark:text-slate-400">
-              Aucun document pour le moment.
-            </div>
-          )}
+                {data.last_page > 1 && (
+                  <div className="flex justify-center gap-2 mt-10">
+                    <button
+                      type="button"
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page <= 1}
+                      className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:border-primary"
+                    >
+                      Précédent
+                    </button>
+                    <span className="px-4 py-2 text-slate-600 dark:text-slate-400">
+                      Page {data.current_page} / {data.last_page}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setPage((p) => Math.min(data.last_page, p + 1))}
+                      disabled={page >= data.last_page}
+                      className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-50 hover:border-primary"
+                    >
+                      Suivant
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-20 text-slate-600 serif italic bg-white/40 rounded-2xl border-2 border-dashed border-accent-gold/20">
+                Aucun manuscrit trouvé pour cette recherche.
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+      );
 }

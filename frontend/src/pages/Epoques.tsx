@@ -55,24 +55,24 @@ export function Epoques() {
   return (
     <div className="relative flex flex-col overflow-x-hidden bg-white">
       {/* Hero Section */}
-      <section className="relative h-[420px] sm:h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[420px] sm:h-[500px] flex items-center justify-center overflow-hidden bg-background-dark">
         <div className="absolute inset-0 z-0">
           <img
             alt="Patrimoine historique du Maroc"
-            className="w-full h-full object-cover opacity-20 grayscale brightness-75"
+            className="w-full h-full object-cover opacity-40 grayscale sepia brightness-50"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMAiUkLX4Ef90560Doe2G93v3yek3cb0Ui2NXaou2ZmdA-JaRLKqN5iQj6K-JouT3lxAWl4qKtnZ3GwYkE2gjjn6fLtK2dH3DcTrf0fizOeK2eCS5zaJNyb5DBiCCJTGNHdxfoMHjh4eINssVYHRipFMpN4S6OJu6Kgl6gEqp2_NgSPr6RsgULGJdGlK3z240igcdNUF-FjAZow4CjH_efTaMRC6qffLZdfHnmZ0V0lgRG-JqWqCGxVHkpLE9bmeP3Mzm_dgybSmPu"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
+          <div className="absolute inset-0 bg-gradient-to-t from-parchment to-transparent" />
         </div>
         <div className="relative z-10 max-w-4xl px-6 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest mb-6">
-            Chronologie
+          <span className="inline-block px-4 py-1.5 rounded-full bg-accent-gold/20 text-accent-gold font-bold text-xs uppercase tracking-widest mb-6 border border-accent-gold/30">
+            Chronologie Royale
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900 vintage-text-shadow serif">
             Les Époques : <br />
-            <span className="text-primary italic font-serif">Parcourir l&apos;histoire</span>
+            <span className="text-primary italic">Parcourir l&apos;histoire</span>
           </h1>
-          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-800 max-w-2xl mx-auto leading-relaxed serif">
             Du littoral phénicien aux dynasties islamiques et au Maroc contemporain, explorez les grandes périodes qui
             ont façonné le Royaume. Tarikh.ma met à portée de clic les archives de chaque époque.
           </p>
@@ -89,25 +89,27 @@ export function Epoques() {
       </section>
 
       {/* Cartes Époques */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 bg-white">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl font-black mb-4 text-slate-900">Chronologie du Maroc</h2>
-          <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {EPOQUES.map((ep) => (
-            <div
-              key={ep.id}
-              className="bg-white p-6 sm:p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group"
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                <span className="material-symbols-outlined">{ep.icon}</span>
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 bg-parchment paper-texture zellij-pattern relative">
+        <div className="relative z-10">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl font-black mb-4 text-slate-900 serif italic">Chronologie du Royaume</h2>
+            <div className="w-16 h-1 bg-accent-gold mx-auto rounded-full" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {EPOQUES.map((ep) => (
+              <div
+                key={ep.id}
+                className="bg-white/80 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-accent-gold/10 shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 group"
+              >
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <span className="material-symbols-outlined">{ep.icon}</span>
+                </div>
+                <span className="text-accent-gold font-bold text-xs uppercase tracking-wider">{ep.dates}</span>
+                <h3 className="font-bold text-xl mb-3 text-slate-900 mt-1 serif">{ep.titre}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">{ep.description}</p>
               </div>
-              <span className="text-primary font-bold text-xs uppercase tracking-wider">{ep.dates}</span>
-              <h3 className="font-bold text-xl mb-3 text-slate-900 mt-1">{ep.titre}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{ep.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

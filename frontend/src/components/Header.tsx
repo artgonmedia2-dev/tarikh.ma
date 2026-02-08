@@ -10,7 +10,7 @@ export function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-colors ${isMenuOpen ? 'bg-white' : 'glass-nav'} border-b border-slate-200 px-6 lg:px-20 py-4`}>
+    <header className={`fixed top-0 w-full z-50 transition-colors ${isMenuOpen ? 'bg-parchment' : 'glass-nav'} border-b border-accent-gold/20 px-6 lg:px-20 py-4`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
           <span className="text-accent-gold">
