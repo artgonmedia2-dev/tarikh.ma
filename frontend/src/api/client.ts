@@ -10,7 +10,7 @@ function getToken(): string | null {
 
 export async function api<T>(
   path: string,
-  options: RequestInit & { params?: Record<string, string | number | undefined> } = {}
+  options: RequestInit & { params?: Record<string, string | number | boolean | undefined> } = {}
 ): Promise<T> {
   const { params, ...init } = options;
   const url = new URL(path.startsWith('http') ? path : `${API_BASE}${path}`, window.location.origin);
@@ -80,6 +80,7 @@ export type DocumentItem = {
   thumbnail_url: string | null;
   views_count: number;
   created_at: string;
+  is_rare: boolean;
   region?: { id: number; name: string; slug: string } | null;
   theme?: { id: number; name: string; slug: string } | null;
   pages_count?: number | null;
@@ -113,8 +114,8 @@ export function documentPageSignedUrls(documentId: string, pages: number[]): Pro
 }
 
 export const documentsApi = {
-  list: (params?: { page?: number; per_page?: number; q?: string; region_id?: number; theme_id?: number; type?: string; year?: string; language?: string }) =>
-    api<Paginated<DocumentItem>>('/documents', { params: params as Record<string, string | number | undefined> }),
+  list: (params?: { page?: number; per_page?: number; q?: string; region_id?: number; theme_id?: number; type?: string; year?: string; language?: string; is_rare?: boolean }) =>
+    api<Paginated<DocumentItem>>('/documents', { params: params as Record<string, string | number | undefined | boolean> }),
   get: (id: string) =>
     api<{ document: DocumentItem & { tags?: unknown[] }; similar: DocumentItem[] }>(`/documents/${id}`),
 };

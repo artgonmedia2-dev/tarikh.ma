@@ -28,6 +28,7 @@ class Document extends Model
         'pages_status',
         'pages_converted_at',
         'content',
+        'is_rare',
     ];
 
     protected $appends = ['thumbnail_url'];

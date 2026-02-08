@@ -39,6 +39,9 @@ class DocumentController extends Controller
         if ($request->filled('year')) {
             $query->where('year', $request->year);
         }
+        if ($request->has('is_rare')) {
+            $query->where('is_rare', filter_var($request->is_rare, FILTER_VALIDATE_BOOLEAN));
+        }
 
         $perPage = min((int) $request->get('per_page', 20), 100);
         $documents = $query->latest()->paginate($perPage);

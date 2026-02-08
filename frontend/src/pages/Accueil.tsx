@@ -51,18 +51,9 @@ const CATEGORIES = [
 ];
 
 const TRESORS = [
-  { badge: 'Dynastie Saadienne', meta: '16ème Siècle', title: "L'Art de la calligraphie à Marrakech", description: "Étude détaillée sur les styles de transcription utilisés sous le règne d'Ahmed al-Mansur.", image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7IYapK4EGetsL_RnTQwBUvwHL5a5B-qIjLOumYxyvWjE_JDl8rKzx0dljC3v_BkCs65Rw12yGxvrpqcboQPdZBp1UBYiBubcOz-u_hPBp5BH3_Wem9xWRsBv8U0oSLvoRsKfrvQuiiGJ-4F1EibEogb5Hz0KscEJNDk_XBa49-ZG0r32EVY6CaCk0QQ7m19zWjd1N3YWPOpVdHluwJUdvBh6OwEpxH29OtKX9Qp5cgNPFomhLOhMFF53VZ9nKHx_elUkIMOIKfj3x' },
+  { badge: 'Dynastie Saadienne', meta: '16ème Siècle', title: "L'Art de la calligraphie à Marrakech", description: "Étude détaillée sur les styles de transcription utilisés sous le règne d'Ahmed al-Mansur.", image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7IYapK4EGetsL_RnTQwBUvwHL5a5B-qIjLOumYxyvWjE_JDl8rKzx0dljC3v_BkCs65Rw12yGxvrpqcboQPdZBp1UBYiBubcOz-u_hPBp5BH3_Wem9xWRsBv8U0oSLvoRsKfrvQuiiGJ-4F1EibEogb5Hz0KscEJNDk_XBa49-ZG0r32EVY6CaCk0QQ7m19zWjd1N3YWPOpVdHluSJUdvBh6OwEpxH29OtKX9Qp5cgNPFomhLOhMFF53VZ9nKHx_elUkIMOIKfj3x' },
   { badge: 'Architecture', meta: 'Fès Médina', title: 'Les Plans de la Mosquée Al-Qarawiyyin', description: "Reconstitution numérique des plans d'expansion originaux de la célèbre université.", image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA4pX_5kvwy0ARvBEUidUNSjjFHqT1yuDAs5o-XrdneM15Ki4vIyB5sM83L7IkyCEl7wbVyN05Eyli3UQ1T-yY3ggBvxi401drFGGis2Gzeoy3t1T6esMPzO5bqAv1NZQSXnO2XTSDeMJE-WaCHJ8I_ht-Y9lEpp7k13W-l70od9BwbWMpNnvKE99RQaFWFWt-1Z-D0L9e_xAYAw-uteguwY_qv6aAa7BTI1AUaUl6mCXYMNrbN0V1qNhKKpvbpkB09YhGn4mHwCKsN' },
   { badge: 'Documents Royaux', meta: 'Rabat, 1894', title: 'Lettres Diplomatiques de Moulay Hassan I', description: 'Correspondances inédites avec les puissances européennes à la fin du XIXe siècle.', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuACH6QP68BU4m47rEjeCbIejMaopwz4l2eJQxDv51xyCxkVHdWs_bDpb1-3ihRyvPPlsOxumuQu_rDNB2n9eEEixouW9H3o_DJQDyZrrjd9Rgdjn0bECC51D10l_MLT5jOcV81r4WXcpDOZkitCNIa-Gsz_2EFWIO5CB_KoNXzzwaj_yGxGWcf-cn7lM6PR7Uv9LuAOLQ1qayjybRSXSjq2s8rcfGD2TX2H4qdEik-iWFMGG6Qeziv0-bx9pUlP4U2Rj0ERcJqKQre0' },
-];
-
-const DYNASTIES = [
-  { name: 'Idrisides', years: '788 - 974', icon: 'potted_plant' },
-  { name: 'Almoravides', years: '1040 - 1147', icon: 'fort' },
-  { name: 'Almohades', years: '1121 - 1269', icon: 'architecture', active: true },
-  { name: 'Mérinides', years: '1244 - 1465', icon: 'school' },
-  { name: 'Saadiens', years: '1549 - 1659', icon: 'crown' },
-  { name: 'Alaouites', years: '1666 - Présent', icon: 'account_balance' },
 ];
 
 export function Accueil() {
@@ -70,6 +61,8 @@ export function Accueil() {
   const [search, setSearch] = useState('');
   const [latestDocs, setLatestDocs] = useState<DocumentItem[]>([]);
   const [loadingLatest, setLoadingLatest] = useState(true);
+  const [rareDocs, setRareDocs] = useState<DocumentItem[]>([]);
+  const [loadingRare, setLoadingRare] = useState(true);
   const [banners, setBanners] = useState<BannerItem[]>([]);
 
   useEffect(() => {
@@ -78,6 +71,12 @@ export function Accueil() {
       .then((res) => setLatestDocs(res.data))
       .catch((err) => console.error('Erreur chargement archives:', err))
       .finally(() => setLoadingLatest(false));
+
+    documentsApi
+      .list({ per_page: 4, is_rare: true })
+      .then((res) => setRareDocs(res.data))
+      .catch((err) => console.error('Erreur chargement documents rares:', err))
+      .finally(() => setLoadingRare(false));
 
     bannersApi
       .list()
@@ -289,38 +288,65 @@ export function Accueil() {
         </div>
       </section>
 
-      {/* L'Odyssée du Temps */}
-      <section className="py-24 px-6 bg-white border-t border-slate-100" id="epoques">
+      {/* Documents Rares (Anciennement Odyssée du Temps) */}
+      <section className="py-24 px-6 bg-background-light border-t border-slate-100" id="rare-documents">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-slate-800 text-4xl font-black mb-4 italic">L&apos;Odyssée du Temps</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">
-              Parcourez les siècles et découvrez les archives classées par dynasties et grandes périodes historiques du Maroc.
+            <h2 className="text-slate-900 text-4xl md:text-6xl font-black mb-4 italic serif uppercase tracking-tighter">
+              Documents <span className="text-accent-gold">Rare</span>
+            </h2>
+            <div className="h-1.5 w-32 bg-accent-gold mx-auto rounded-full mb-6" />
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg serif italic">
+              Une sélection exclusive des pièces les plus précieuses de notre patrimoine national.
             </p>
           </div>
-          <div className="relative">
-            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2 hidden lg:block" />
-            <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
-              {DYNASTIES.map((d) => (
+
+          {loadingRare ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="aspect-[3/4] bg-slate-100 animate-pulse rounded-2xl" />
+              ))}
+            </div>
+          ) : rareDocs.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {rareDocs.map((doc) => (
                 <Link
-                  key={d.name}
-                  to={`/archives?epoque=${encodeURIComponent(d.name)}`}
-                  className="flex flex-col items-center group cursor-pointer"
+                  key={doc.id}
+                  to={`/documents/${doc.id}`}
+                  className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-accent-gold/20 shadow-xl hover:shadow-2xl transition-all duration-500"
                 >
-                  <div
-                    className={`w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center transition-all shadow-sm mb-4 bg-white ${d.active
-                      ? 'ring-4 ring-primary/40 border-primary/30 text-slate-800'
-                      : 'text-slate-700 group-hover:ring-4 group-hover:ring-slate-200'
-                      }`}
-                  >
-                    <span className="material-symbols-outlined text-3xl">{d.icon}</span>
+                  <img
+                    src={doc.thumbnail_url || '/placeholder-archive.jpg'}
+                    alt={doc.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                    <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <span className="text-accent-gold text-[10px] font-bold uppercase tracking-widest mb-2 block border-l-2 border-accent-gold pl-2">
+                        {doc.type} • {doc.year || 'Époque Royale'}
+                      </span>
+                      <h3 className="text-white text-xl font-bold serif mb-3 leading-tight leading-clamp-2">
+                        {doc.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-parchment/60 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                        <span className="material-symbols-outlined text-[14px]">visibility</span>
+                        <span>Consulter ce trésor</span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">{d.years}</span>
-                  <h5 className="text-slate-800 font-black text-center text-sm">{d.name}</h5>
+                  <div className="absolute top-4 right-4 bg-accent-gold text-background-dark p-2 rounded-full shadow-lg scale-0 group-hover:scale-100 transition-transform duration-500">
+                    <span className="material-symbols-outlined text-[20px]">star</span>
+                  </div>
                 </Link>
               ))}
             </div>
-          </div>
+          ) : (
+            <div className="text-center py-20 bg-parchment/30 rounded-3xl border-2 border-dashed border-accent-gold/10">
+              <span className="material-symbols-outlined text-accent-gold/20 text-6xl mb-4">auto_stories</span>
+              <p className="text-slate-400 serif italic">Bientôt, découvrez ici nos plus rares manuscrits...</p>
+            </div>
+          )}
         </div>
       </section>
     </>

@@ -38,6 +38,7 @@ export function AdminDocumentForm() {
   const [document, setDocument] = useState<{ pages_status?: string; pages_count?: number | null; thumbnail_url?: string | null } | null>(null);
   const [conversionProgress, setConversionProgress] = useState<{ current: number; total: number } | null>(null);
   const [regenerating, setRegenerating] = useState(false);
+  const [isRare, setIsRare] = useState(false);
 
   useEffect(() => {
     themesApi.list().then((t) => setThemes(t)).catch(() => []);
@@ -59,6 +60,7 @@ export function AdminDocumentForm() {
         setThemeId(doc.theme_id ?? '');
         setLanguage(doc.language ?? '');
         setKeywords(doc.keywords ?? '');
+        setIsRare(doc.is_rare ?? false);
         setDocument({
           pages_status: doc.pages_status ?? undefined,
           pages_count: doc.pages_count ?? null,
@@ -145,6 +147,7 @@ export function AdminDocumentForm() {
     form.append('theme_id', themeId === '' ? '' : String(themeId));
     form.append('language', language);
     form.append('keywords', keywords);
+    form.append('is_rare', isRare ? '1' : '0');
     if (file) form.append('file', file);
     if (thumbnail) form.append('thumbnail', thumbnail);
     if (isEdit) form.append('_method', 'PUT');
@@ -439,6 +442,24 @@ export function AdminDocumentForm() {
                         className="sr-only peer"
                       />
                       <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-admin-primary" />
+                    </label>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-amber-50/50 border border-amber-200 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="material-symbols-outlined text-amber-600">star</span>
+                      <div>
+                        <p className="text-sm font-bold">Marquer comme &quot;Document Rare&quot;</p>
+                        <p className="text-xs text-slate-500">S&apos;affichera dans la section spéciale de la page d&apos;accueil</p>
+                      </div>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={isRare}
+                        onChange={(e) => setIsRare(e.target.checked)}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500" />
                     </label>
                   </div>
                   <div className="space-y-3">
