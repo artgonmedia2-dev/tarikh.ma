@@ -25,7 +25,8 @@ class DocumentController extends Controller
             });
         }
         if ($request->filled('type')) {
-            $query->where('type', $request->type);
+            $types = is_array($request->type) ? $request->type : explode(',', $request->type);
+            $query->whereIn('type', $types);
         }
         if ($request->filled('theme_id')) {
             $query->where('theme_id', $request->theme_id);
@@ -39,12 +40,41 @@ class DocumentController extends Controller
         if ($request->filled('year')) {
             $query->where('year', $request->year);
         }
+        if ($request->filled('year_min')) {
+            $query->where('year', '>=', $request->year_min);
+        }
+        if ($request->filled('year_max')) {
+            $query->where('year', '<=', $request->year_max);
+        }
         if ($request->has('is_rare')) {
             $query->where('is_rare', filter_var($request->is_rare, FILTER_VALIDATE_BOOLEAN));
         }
 
+        // Sorting
+        $sortBy = $request->get('sort_by', 'latest');
+        switch ($sortBy) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'views':
+                $query->orderBy('views_count', 'desc');
+                break;
+            case 'year_asc':
+                $query->orderBy('year', 'asc');
+                break;
+            case 'year_desc':
+                $query->orderBy('year', 'desc');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
         $perPage = min((int) $request->get('per_page', 20), 100);
-        $documents = $query->latest()->paginate($perPage);
+        $documents = $query->paginate($perPage);
 
         return response()->json($documents);
     }

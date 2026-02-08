@@ -114,8 +114,21 @@ export function documentPageSignedUrls(documentId: string, pages: number[]): Pro
 }
 
 export const documentsApi = {
-  list: (params?: { page?: number; per_page?: number; q?: string; region_id?: number; theme_id?: number; type?: string; year?: string; language?: string; is_rare?: boolean }) =>
-    api<Paginated<DocumentItem>>('/documents', { params: params as Record<string, string | number | undefined | boolean> }),
+  list: (params?: {
+    page?: number;
+    per_page?: number;
+    q?: string;
+    region_id?: number;
+    theme_id?: number;
+    type?: string | string[];
+    year?: string;
+    year_min?: number;
+    year_max?: number;
+    is_rare?: boolean;
+    language?: string;
+    sort_by?: 'latest' | 'oldest' | 'title' | 'views' | 'year_asc' | 'year_desc';
+  }) =>
+    api<Paginated<DocumentItem>>('/documents', { params: params as Record<string, string | number | undefined | boolean | string[]> }),
   get: (id: string) =>
     api<{ document: DocumentItem & { tags?: unknown[] }; similar: DocumentItem[] }>(`/documents/${id}`),
 };
