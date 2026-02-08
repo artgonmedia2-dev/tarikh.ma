@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { documentsApi, type DocumentItem } from '@/api/client';
 
 const HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuBpIX9eFdB_PDh8VX_XwGjMSnshbOdlEt_5DyZZTzLhWCu14dvdgOfYRVHufwRim5HWN-y5zws2t_cehuoOgq8wbPGmbFt0MiSYdskfKDVjfyDnjHab714Df_83fOcvuf1-aFvJf3SF8i-LTMyjeRU9QNdkAz76uFM2RfX9-kCpBN2IZ2rc3bcaaum0R0-rYZtIJ2HZ0l4Fqzj5DJBkkYXeqxZN5cLU-zySzFI1G7niZ0Xs3-fUUUrMkBwjFTFdQY4XJrC_3-Wn6__B';
@@ -65,8 +66,18 @@ const DYNASTIES = [
 ];
 
 export function Accueil() {
-  const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const [search, setSearch] = useState('');
+  const [latestDocs, setLatestDocs] = useState<DocumentItem[]>([]);
+  const [loadingLatest, setLoadingLatest] = useState(true);
+
+  useEffect(() => {
+    documentsApi
+      .list({ per_page: 6, page: 1 })
+      .then((res) => setLatestDocs(res.data))
+      .catch((err) => console.error('Erreur chargement archives:', err))
+      .finally(() => setLoadingLatest(false));
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -169,38 +180,69 @@ export function Accueil() {
         </div>
       </section>
 
-      {/* Trésors Récents */}
-      <section className="py-24 bg-white overflow-hidden border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12">
-            <h2 className="text-slate-900 text-3xl md:text-4xl font-black mb-2 italic">Trésors Récents</h2>
-            <p className="text-slate-500">Les dernières numérisations ajoutées à nos serveurs.</p>
+      {/* Trésors Récents (Archives Dynamiques) */}
+      <section className="py-24 bg-white overflow-hidden border-t border-slate-100 relative">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <h2 className="text-slate-900 text-3xl md:text-5xl font-black mb-3 italic serif">Trésors Récents</h2>
+              <div className="h-1.5 w-24 bg-accent-gold rounded-full mb-4" />
+              <p className="text-slate-500 serif">Les dernières numérisations ajoutées aux Archives Nationales.</p>
+            </div>
+            <Link to="/exploration" className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all group">
+              Voir tout le catalogue <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </Link>
           </div>
-          <div className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide">
-            {TRESORS.map((t) => (
-              <Link
-                key={t.title}
-                to="/archives"
-                className="min-w-[300px] md:min-w-[400px] bg-slate-50 border border-slate-200 rounded-xl overflow-hidden hover:border-accent-gold/50 transition-colors group flex-shrink-0"
-              >
-                <div className="h-56 overflow-hidden">
-                  <img
-                    src={t.image}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="bg-primary/20 text-primary text-[10px] font-black uppercase px-2 py-1 rounded">{t.badge}</span>
-                    <span className="text-slate-500 text-xs">{t.meta}</span>
+
+          {loadingLatest ? (
+            <div className="flex gap-6 overflow-hidden">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="min-w-[300px] md:min-w-[400px] h-80 bg-slate-100 animate-pulse rounded-2xl" />
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide touch-scroll">
+              {latestDocs.map((doc) => (
+                <Link
+                  key={doc.id}
+                  to={`/documents/${doc.id}`}
+                  className="min-w-[300px] md:min-w-[420px] bg-parchment/30 border border-accent-gold/10 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-accent-gold/5 transition-all group flex-shrink-0 relative"
+                >
+                  <div className="h-64 overflow-hidden relative">
+                    {doc.thumbnail_url ? (
+                      <img
+                        src={doc.thumbnail_url}
+                        alt={doc.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-parchment flex items-center justify-center">
+                        <span className="material-symbols-outlined text-accent-gold/30 text-7xl">folded_paper</span>
+                      </div>
+                    )}
+                    <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-primary uppercase border border-accent-gold/10">
+                      {doc.type}
+                    </div>
                   </div>
-                  <h4 className="text-slate-900 text-lg font-bold mb-2">{t.title}</h4>
-                  <p className="text-slate-500 text-sm line-clamp-2">{t.description}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  <div className="p-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-accent-gold material-symbols-outlined text-sm">calendar_today</span>
+                      <span className="text-slate-500 text-xs font-medium">{doc.year || 'Année inconnue'}</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300 mx-1" />
+                      <span className="text-slate-500 text-xs font-medium">{doc.region?.name || 'Royaume'}</span>
+                    </div>
+                    <h4 className="text-slate-900 text-xl font-bold mb-3 group-hover:text-primary transition-colors serif line-clamp-2 leading-tight">
+                      {doc.title}
+                    </h4>
+                    <div className="flex items-center justify-between pt-4 border-t border-accent-gold/5 mt-auto">
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{doc.views_count} vues</span>
+                      <span className="text-primary material-symbols-outlined group-hover:translate-x-1 transition-transform">visibility</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
