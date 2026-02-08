@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#006d5b', // Vert émeraude marocain sombre
-        secondary: '#6050dc', // Bleu Majorelle
+        primary: '#7e6050', // Terre de Sienne / Brun vintage
+        secondary: '#dbc2a4', // Sable / Beige chaud
         'accent-gold': '#b8860b', // Or foncé / Bronze
         terracotta: '#c04000', // Terre cuite marocaine
         'background-light': '#fdfbf7',
