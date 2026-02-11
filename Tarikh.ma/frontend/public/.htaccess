@@ -1,0 +1,37 @@
+AddType application/javascript .mjs
+
+# Optimisation pour les gros fichiers (PDF)
+<IfModule mod_php7.c>
+    php_value memory_limit 512M
+    php_value max_execution_time 300
+    php_value upload_max_filesize 64M
+    php_value post_max_size 64M
+</IfModule>
+<IfModule mod_php.c>
+    php_value memory_limit 512M
+    php_value max_execution_time 300
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indices
+    </IfModule>
+
+    RewriteEngine On
+
+    # Fix for Authorization Header in Shared Hosting
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # 1. Rediriger les requetes /api vers Laravel (index.php)
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteRule ^ index.php [L]
+
+    # 2. Rediriger tout le reste vers le Frontend React (index.html)
+    RewriteBase /
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteRule . /index.html [L]
+</IfModule>

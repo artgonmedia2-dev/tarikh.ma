@@ -32,12 +32,12 @@ export function Header() {
             Collections
           </NavLink>
           <NavLink
-            to="/epoques"
+            to="/contribuer"
             className={({ isActive }) =>
               `text-sm font-medium transition-colors ${isActive ? 'text-accent-gold' : 'text-slate-600 hover:text-accent-gold'}`
             }
           >
-            Époques
+            Contribuer
           </NavLink>
           <Link to="/archives" className="text-slate-600 hover:text-accent-gold text-sm font-medium transition-colors">
             Archives
@@ -82,7 +82,7 @@ export function Header() {
                 </button>
                 <Link
                   to="/login"
-                  className="bg-primary hover:bg-primary/80 text-white px-6 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105"
+                  className="bg-accent-gold hover:bg-accent-gold/90 text-white px-6 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-accent-gold/20"
                 >
                   Connexion
                 </Link>
@@ -118,13 +118,13 @@ export function Header() {
               Collections
             </NavLink>
             <NavLink
-              to="/epoques"
+              to="/contribuer"
               onClick={closeMenu}
               className={({ isActive }) =>
                 `text-lg font-semibold transition-colors ${isActive ? 'text-accent-gold' : 'text-slate-900 border-b border-slate-100 pb-2'}`
               }
             >
-              Époques
+              Contribuer
             </NavLink>
             <Link
               to="/archives"
@@ -180,7 +180,7 @@ export function Header() {
                 <Link
                   to="/login"
                   onClick={closeMenu}
-                  className="w-full bg-primary text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20"
+                  className="w-full bg-accent-gold text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg shadow-accent-gold/20"
                 >
                   Connexion
                 </Link>

@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indices
+    </IfModule>
+
+    RewriteEngine On
+
+    # 1. Rediriger les requetes /api vers Laravel (index.php)
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteRule ^ index.php [L]
+
+    # 2. Rediriger tout le reste vers le Frontend React (index.html)
+    RewriteBase /
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteRule . /index.html [L]
+</IfModule>

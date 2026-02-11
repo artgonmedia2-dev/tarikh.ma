@@ -20,6 +20,7 @@ export function DocumentView() {
   const [flipPhase, setFlipPhase] = useState<'out' | 'in' | null>(null);
   const [flipDirection, setFlipDirection] = useState<'next' | 'prev' | null>(null);
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string | null>(null);
+  const [pdfFetchError, setPdfFetchError] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isPdf = document?.type === 'pdf';
   const isFlipping = flipPhase !== null;
@@ -61,7 +62,7 @@ export function DocumentView() {
     let revoked = false;
     fetch(streamUrl)
       .then((res) => {
-        if (!res.ok) throw new Error(res.statusText);
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         return res.blob();
       })
       .then((blob) => {
@@ -69,10 +70,12 @@ export function DocumentView() {
         const url = URL.createObjectURL(blob);
         blobUrl = url;
         setPdfBlobUrl(url);
+        setPdfFetchError(null);
       })
-      .catch(() => {
+      .catch((err) => {
         if (!revoked) {
-          // Silent fail or handle error if needed, but pdfFetchError is unused
+          console.error('[DocumentView] PDF fetch failed:', err);
+          setPdfFetchError(err.message || 'Erreur lors de la récupération du PDF');
         }
       });
     return () => {
@@ -221,7 +224,7 @@ export function DocumentView() {
       <div className="flex flex-col flex-1 min-h-0 w-full">
         <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3 z-50 shrink-0">
           <Link to="/" className="flex items-center gap-2 sm:gap-3">
-            <span className="text-primary material-symbols-outlined text-xl sm:text-2xl">auto_stories</span>
+            <span className="text-accent-gold material-symbols-outlined text-xl sm:text-2xl">auto_stories</span>
             <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">Tarikh.ma</h2>
           </Link>
           <div className="flex items-center gap-2 sm:gap-4">
@@ -229,7 +232,7 @@ export function DocumentView() {
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
               <input className="bg-slate-100 border-none rounded-lg pl-9 pr-3 py-2 text-sm w-44 lg:w-64" placeholder="Rechercher..." type="text" readOnly />
             </div>
-            <Link to="/login" className="bg-primary text-white text-sm font-bold px-4 py-2 sm:px-5 rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20 whitespace-nowrap">
+            <Link to="/login" className="bg-accent-gold text-white text-sm font-bold px-4 py-2 sm:px-5 rounded-lg hover:brightness-110 transition-all shadow-lg shadow-accent-gold/20 whitespace-nowrap">
               Mon Compte
             </Link>
           </div>
@@ -257,7 +260,7 @@ export function DocumentView() {
         <main className="flex flex-1 items-center justify-center p-12 min-h-0">
           <div className="text-center">
             <p className="text-slate-600">Document introuvable.</p>
-            <Link to="/archives" className="text-primary font-semibold mt-4 inline-block hover:underline">
+            <Link to="/archives" className="text-accent-gold font-semibold mt-4 inline-block hover:underline">
               Retour aux archives
             </Link>
           </div>
@@ -299,17 +302,17 @@ export function DocumentView() {
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3 z-50 shrink-0">
         <div className="flex items-center gap-3 sm:gap-6 min-w-0 flex-1">
           <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <span className="text-primary">
+            <span className="text-accent-gold">
               <span className="material-symbols-outlined text-xl sm:text-2xl">auto_stories</span>
             </span>
             <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 truncate">Tarikh.ma</h2>
           </Link>
           <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-slate-500 min-w-0">
-            <Link to="/archives" className="hover:text-primary px-2 transition-colors shrink-0">Archives</Link>
+            <Link to="/archives" className="hover:text-accent-gold px-2 transition-colors shrink-0">Archives</Link>
             {regionName && (
               <>
                 <span className="material-symbols-outlined text-xs shrink-0">chevron_right</span>
-                <Link to="/archives" className="hover:text-primary px-2 transition-colors truncate max-w-[120px]">{regionName}</Link>
+                <Link to="/archives" className="hover:text-accent-gold px-2 transition-colors truncate max-w-[120px]">{regionName}</Link>
               </>
             )}
             <span className="material-symbols-outlined text-xs shrink-0">chevron_right</span>
@@ -319,9 +322,9 @@ export function DocumentView() {
         <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           <div className="relative hidden sm:block">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
-            <input className="bg-slate-100 border-none rounded-lg pl-9 pr-3 py-2 text-sm w-44 lg:w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="Rechercher..." type="text" readOnly />
+            <input className="bg-slate-100 border-none rounded-lg pl-9 pr-3 py-2 text-sm w-44 lg:w-64 focus:ring-2 focus:ring-accent-gold/40 transition-all" placeholder="Rechercher..." type="text" readOnly />
           </div>
-          <Link to="/login" className="bg-primary text-white text-sm font-bold px-4 py-2 sm:px-5 rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20 whitespace-nowrap">
+          <Link to="/login" className="bg-accent-gold text-white text-sm font-bold px-4 py-2 sm:px-5 rounded-lg hover:brightness-110 transition-all shadow-lg shadow-accent-gold/20 whitespace-nowrap">
             Mon Compte
           </Link>
         </div>
@@ -332,8 +335,8 @@ export function DocumentView() {
         {/* Zone visionneuse — style brochure : fond blanc, flèches sur les bords, indicateur centré */}
         <div className="flex-1 flex flex-col bg-[#fcfaf7] relative group min-w-0 min-h-[40vh] sm:min-h-[50vh] border-b border-slate-200 lg:border-b-0 lg:border-r border-slate-200">
           {/* Badge Lecture en ligne uniquement — style clair */}
-          <div className="absolute top-3 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/95 shadow-sm border border-slate-200/80">
-            <span className="material-symbols-outlined text-primary text-lg">visibility</span>
+          <div className="absolute top-3 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/95 shadow-sm border border-accent-gold/20">
+            <span className="material-symbols-outlined text-accent-gold text-lg">visibility</span>
             <span className="text-slate-700 text-xs font-semibold uppercase tracking-wider">Lecture en ligne uniquement</span>
             <span className="text-slate-400 text-[10px] hidden sm:inline">· Copier/coller désactivé</span>
           </div>
@@ -405,10 +408,24 @@ export function DocumentView() {
                       onFlipAnimationEnd={handleFlipAnimationEnd}
                       isFlipping={isFlipping}
                     />
+                  ) : pdfFetchError ? (
+                    <div className="flex-1 flex items-center justify-center bg-white shadow-sm rounded min-h-[50vh] w-full max-w-2xl px-6 text-center">
+                      <div className="flex flex-col items-center gap-3">
+                        <span className="material-symbols-outlined text-4xl text-red-500">error</span>
+                        <p className="text-slate-600 font-medium">Échec de la préparation du document</p>
+                        <p className="text-slate-400 text-xs">{pdfFetchError}</p>
+                        <button
+                          onClick={() => window.location.reload()}
+                          className="mt-2 text-accent-gold text-sm font-bold hover:underline"
+                        >
+                          Réessayer
+                        </button>
+                      </div>
+                    </div>
                   ) : (
                     <div className="flex-1 flex items-center justify-center bg-white shadow-sm rounded min-h-[50vh] w-full max-w-2xl">
                       <div className="flex flex-col items-center gap-3">
-                        <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-4 border-accent-gold/20 border-t-accent-gold rounded-full animate-spin" />
                         <span className="text-slate-500 text-sm animate-pulse">Préparation du document sécurisé...</span>
                       </div>
                     </div>
@@ -435,10 +452,10 @@ export function DocumentView() {
                     loading="lazy"
                     onContextMenu={preventDownload}
                   />
-                  <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/40 rounded-tl" />
-                  <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-primary/40 rounded-tr" />
-                  <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-primary/40 rounded-bl" />
-                  <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-primary/40 rounded-br" />
+                  <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-accent-gold/40 rounded-tl" />
+                  <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-accent-gold/40 rounded-tr" />
+                  <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-accent-gold/40 rounded-bl" />
+                  <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-accent-gold/40 rounded-br" />
                 </div>
               )}
               {isVideo && (
@@ -475,7 +492,7 @@ export function DocumentView() {
               <div className="flex gap-3 sm:gap-4 overflow-x-auto custom-scrollbar pb-2 scrollbar-hide touch-scroll">
                 {similar.map((doc) => (
                   <Link key={doc.id} to={`/documents/${doc.id}`} className="flex-shrink-0 w-24 sm:w-32 group/card cursor-pointer">
-                    <div className="aspect-[3/4] rounded-md overflow-hidden bg-slate-200 border border-slate-200 group-hover/card:border-primary/50 transition-all">
+                    <div className="aspect-[3/4] rounded-md overflow-hidden bg-slate-200 border border-slate-200 group-hover/card:border-accent-gold/50 transition-all">
                       {doc.type === 'image' ? (
                         <img src={documentStreamUrl(String(doc.id))} alt="" className="w-full h-full object-cover grayscale opacity-80 group-hover/card:grayscale-0 group-hover/card:opacity-100 transition-all duration-500" />
                       ) : (
@@ -484,7 +501,7 @@ export function DocumentView() {
                         </div>
                       )}
                     </div>
-                    <p className="text-[9px] sm:text-[10px] text-slate-600 mt-1 sm:mt-2 truncate group-hover/card:text-primary transition-colors">{doc.title}</p>
+                    <p className="text-[9px] sm:text-[10px] text-slate-600 mt-1 sm:mt-2 truncate group-hover/card:text-accent-gold transition-colors">{doc.title}</p>
                   </Link>
                 ))}
               </div>
@@ -495,17 +512,17 @@ export function DocumentView() {
         {/* Sidebar droite — fond blanc, responsive padding */}
         <aside className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col z-30 custom-scrollbar overflow-y-auto shrink-0 lg:min-h-0">
           <div className="p-4 sm:p-6 lg:p-8">
-            <div className="flex items-center gap-2 text-primary mb-2">
+            <div className="flex items-center gap-2 text-accent-gold mb-2">
               <span className="material-symbols-outlined text-sm">verified</span>
               <span className="text-[10px] font-bold uppercase tracking-widest">Document Certifié</span>
             </div>
             <h1 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight text-slate-900">{document.title}</h1>
             <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-gold/10 text-accent-gold text-xs font-semibold">
                 <span className="material-symbols-outlined text-sm">visibility</span>
-                <span>1,284 vues</span>
+                <span>{document.views_count || '1,284'} vues</span>
               </div>
-              <button type="button" onClick={() => navigator.clipboard.writeText(window.location.href)} className="text-slate-400 hover:text-primary transition-colors" aria-label="Partager">
+              <button type="button" onClick={() => navigator.clipboard.writeText(window.location.href)} className="text-slate-400 hover:text-accent-gold transition-colors" aria-label="Partager">
                 <span className="material-symbols-outlined">share</span>
               </button>
               <button type="button" className="text-slate-400 hover:text-red-500 transition-colors" aria-label="Favoris">
@@ -541,21 +558,21 @@ export function DocumentView() {
                 <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Actions de recherche</h4>
                 <button type="button" className="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors group">
                   <span className="text-sm font-medium text-slate-800">Provenance & Histoire</span>
-                  <span className="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">history</span>
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-accent-gold transition-colors">history</span>
                 </button>
                 <button type="button" className="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors group">
                   <span className="text-sm font-medium text-slate-800">Citer le document</span>
-                  <span className="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">format_quote</span>
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-accent-gold transition-colors">format_quote</span>
                 </button>
                 <button type="button" className="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors group">
                   <span className="text-sm font-medium text-slate-800">Signaler une erreur</span>
-                  <span className="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">flag</span>
+                  <span className="material-symbols-outlined text-slate-400 group-hover:text-accent-gold transition-colors">flag</span>
                 </button>
               </div>
             </div>
-            <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-primary/5 border border-primary/10">
+            <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-accent-gold/5 border border-accent-gold/10">
               <div className="flex items-center gap-3 mb-3">
-                <span className="material-symbols-outlined text-primary">lock</span>
+                <span className="material-symbols-outlined text-accent-gold">lock</span>
                 <h5 className="text-sm font-bold text-slate-900">Lecture Sécurisée</h5>
               </div>
               <p className="text-xs text-slate-500 leading-relaxed">
